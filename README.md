@@ -5,6 +5,7 @@ A small public collection of portable AI skills.
 ## Skills
 
 - `make-it-make-sense/` — a self-contained sense-making protocol for turning messy ideas, plans, documents, or decisions into clear artifacts with visible routing, trust markers, and safe capture behavior.
+- `scout/` — a generic triage protocol for deciding whether a new idea, link, tool, repo, framework, or opportunity deserves GO-now, PARK, or KILL.
 
 ## Install or use
 
