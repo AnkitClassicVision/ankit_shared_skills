@@ -9,6 +9,12 @@ A small public collection of portable AI skills.
 - `aac-process-design/` — guide AI workflow/process design with gates, owners, risks, and evaluation checkpoints.
 - `agent-spec-writer/` — turn product intent into agent-ready behavioral specs with Given/When/Then boundaries.
 - `agenttwin/` — produce public-safe agent evaluation packets and readiness reviews without exposing private rubrics.
+- `to-prd/` — turn understood context into a PRD artifact for an issue tracker.
+- `to-issues/` — break PRDs/specs into vertical-slice implementation issues.
+- `improve-codebase-architecture/` — surface deep-module refactoring opportunities and architecture reports.
+- `handoff/` — compact current project state into a redacted continuation packet for another agent or session.
+- `grill-me/` — run the dependency-first interrogation phase before writing a PRD or implementation plan.
+- `codebase-organizer/` — analyze a repository, map modules, detect coupling/orphans, and feed brownfield context into `run-project`.
 - `context-layer-generator/` — build structural, semantic, and philosophical context layers for a repo or project.
 - `run-project/` — orchestrate a full spec-backed project pipeline from grill to PRD, spec, context, issues, plans, execution, and acceptance.
 - `seeit/` — create lightweight visual maps and review artifacts for project understanding.
@@ -20,6 +26,10 @@ A small public collection of portable AI skills.
 ### Use as a native skill
 
 Copy a skill folder into your AI tool's skills directory, then ask the tool to use the skill by name.
+
+### Install the full run-project bundle
+
+For `/run-project`, copy every folder in this repository into the target skills directory, not just `run-project/`. The conductor expects its companion skills to be installed alongside it. The bundle includes the planning, PRD, issue, context, SEEIT, handoff, codebase organizer, and acceptance-review skills. The only non-bundled dependency is the user's execution runtime: a coding agent, shell/test runner, or human operator.
 
 ### Use as a standalone prompt
 

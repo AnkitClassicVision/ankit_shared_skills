@@ -327,9 +327,8 @@ def run_dark_factory_qa(repo_path: str) -> List[QAFinding]:
 
     print(f"Running Dark Factory QA with {len(scenario_files)} scenario(s)...")
 
-    dark_factory_skill = Path.home() / '.hermes' / 'skills' / 'dark-factory-qa'
-    if not dark_factory_skill.exists():
-        dark_factory_skill = Path.home() / '.claude' / 'skills' / 'dark-factory-qa'
+    configured = os.environ.get('DARK_FACTORY_QA_SKILL_DIR')
+    dark_factory_skill = Path(configured) if configured else Path.home() / '.agent' / 'skills' / 'dark-factory-qa'
 
     if not dark_factory_skill.exists():
         findings.append(QAFinding(

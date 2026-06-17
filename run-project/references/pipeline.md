@@ -11,14 +11,14 @@ Everything else is auto-detected.
 ## Pipeline
 
 ### Phase 1: Grill
-- **Skill**: `grill-me` (Matt's)
+- **Skill**: `grill-me`
 - **When**: Always
 - **What**: Questions about intent, explores repo if it exists
 - **If brownfield** (>1000 LOC): Auto-runs codebase analysis, presents findings
 - **Gate**: User says "yes" → proceed to PRD
 
 ### Phase 2: PRD
-- **Skill**: `to-prd` (Matt's)
+- **Skill**: `to-prd`
 - **When**: After Grill approval
 - **What**: Problem, solution, user stories, decisions
 - **Output**: `.run-project/prd.md`
@@ -60,7 +60,7 @@ Everything else is auto-detected.
 - **Gate**: User says "yes" → proceed
 
 ### Phase 9: To-Issues
-- **Skill**: `to-issues` (Matt's)
+- **Skill**: `to-issues`
 - **When**: After SEEIT approval
 - **What**: Tracer-bullet slices, HITL/AFK labels
 - **Output**: Issues + `.run-project/issues.md`

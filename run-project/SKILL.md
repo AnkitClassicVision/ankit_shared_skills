@@ -22,6 +22,12 @@ surfaces: [hermes, claude-code, codex]
 
 Runs any repo through a pipeline that produces a spec-backed, issue-tracker-ready implementation plan.
 
+## Self-contained public bundle
+
+This public bundle is intended to be installed as a set. If the repository folders are copied together into a skills directory, `/run-project` has all named planning and artifact dependencies locally: `grill-me`, `to-prd`, `agent-spec-writer`, `context-layer-generator`, `seeit`, `to-issues`, `writing-plans`, `handoff`, `skillify`, `codebase-organizer`, `improve-codebase-architecture`, `aac-process-design`, and `agenttwin`.
+
+The only external dependency is the user's runtime executor: a local coding agent, shell/test runner, or human operator for implementation.
+
 Blind evals are generated after every artifact phase and hidden until execution QA.
 
 ```
@@ -84,8 +90,8 @@ See `references/execution-pitfalls.md` for common execution-phase traps and fixe
 ## Pipeline
 
 ### Phase 1: Grill
-- Uses `grill-me` (Matt's skill)
-- **Auto-runs `codebase-organizer`** if repo exists + >1000 LOC. User controls whether to include organizer output in grill.
+- Uses `grill-me`
+- **Auto-runs bundled `codebase-organizer`** if repo exists + >1000 LOC. User controls whether to include organizer output in grill.
 - `codebase-organizer` can be invoked standalone at any time via `/organize [path]`. Its output auto-binds to `.run-project/organizer-report.json`.
 - `/skillify [path]` can be invoked standalone to turn any repo into a `.skill-pack/` — a persistent skill manifest consumed by all pipeline phases. Runs `/organize` internally.
 - Presents deepening candidates from organizer analysis
@@ -95,7 +101,7 @@ See `references/execution-pitfalls.md` for common execution-phase traps and fixe
 - **Gate**: User approves → continue
 
 ### Phase 2: PRD
-- Uses `to-prd` (Matt's skill)
+- Uses `to-prd`
 - Problem, solution, user stories, decisions
 - **Output**: `.run-project/prd.md`
 
@@ -136,7 +142,7 @@ See `references/execution-pitfalls.md` for common execution-phase traps and fixe
 - **Gate**: User approves → continue
 
 ### Phase 9: To-Issues
-- Uses `to-issues` (Matt's)
+- Uses `to-issues`
 - Tracer-bullet slices
 - **Output**: `.run-project/issues.md`
 
@@ -299,7 +305,8 @@ Required:
 - `grill-me`, `to-prd`, `to-issues`, `handoff`
 - `agent-spec-writer`, `context-layer-generator`
 - `seeit`, `writing-plans`, `skillify`
-- `writing-plans` plus the available local coding agent or executor
+- `codebase-organizer`, `improve-codebase-architecture`
+- the available local coding agent, shell/test runner, or human executor
 
 Auto-detected:
 - `aac-process-design` — if AI workflow detected

@@ -183,7 +183,7 @@ def should_analyze(file_path: str, ignore_patterns: List[str]) -> bool:
 
     # Skip hidden dirs, node_modules, etc.
     skip_dirs = {'node_modules', '.git', 'venv', '.venv', '__pycache__', '.pytest_cache',
-                 'dist', 'build', '.next', '.hermes', '.claude', '.codex', 'coverage',
+                 'dist', 'build', '.next', '.agent', '.agents', '.ai-skills', 'coverage',
                  '.run-project'}
     for part in path.parts:
         if part in skip_dirs:
