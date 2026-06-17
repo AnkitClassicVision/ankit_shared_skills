@@ -31,6 +31,24 @@ Copy a skill folder into your AI tool's skills directory, then ask the tool to u
 
 For `/run-project`, copy every folder in this repository into the target skills directory, not just `run-project/`. The conductor expects its companion skills to be installed alongside it. The bundle includes the planning, PRD, issue, context, SEEIT, handoff, codebase organizer, and acceptance-review skills. The only non-bundled dependency is the user's execution runtime: a coding agent, shell/test runner, or human operator.
 
+### Install as a Codex plugin
+
+This repo also includes a repo-local Codex marketplace and a self-contained plugin copy of the bundle:
+
+```bash
+git clone https://github.com/AnkitClassicVision/ankit_shared_skills.git
+cd ankit_shared_skills
+codex plugin marketplace add .
+codex plugin add run-project-bundle@ankit-shared-skills
+```
+
+Start a new Codex thread after installing so the plugin skills are loaded into the next session.
+
+Plugin files live at:
+
+- `.agents/plugins/marketplace.json`
+- `plugins/run-project-bundle/`
+
 ### Use as a standalone prompt
 
 Open the skill's `SKILL.md`, paste it into an AI assistant, and add:

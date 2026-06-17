@@ -1,0 +1,38 @@
+{
+  "name": "run-project-bundle",
+  "version": "0.1.0",
+  "description": "Portable Codex plugin packaging for the public run-project skill bundle.",
+  "author": {
+    "name": "Ankit Classic Vision",
+    "url": "https://github.com/AnkitClassicVision"
+  },
+  "homepage": "https://github.com/AnkitClassicVision/ankit_shared_skills",
+  "repository": "https://github.com/AnkitClassicVision/ankit_shared_skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "run-project",
+    "project-planning",
+    "codex-plugin",
+    "agent-workflow"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Run Project Bundle",
+    "shortDescription": "Install the public run-project skill stack as one plugin.",
+    "longDescription": "A public-safe Codex plugin bundle containing run-project and its companion skills for project grilling, PRDs, specs, context layers, issues, writing plans, handoffs, architecture review, and acceptance checks.",
+    "developerName": "Ankit Classic Vision",
+    "category": "Productivity",
+    "capabilities": [
+      "Project planning",
+      "Implementation planning",
+      "Review and handoff"
+    ],
+    "defaultPrompt": [
+      "Use run-project to plan this build from prompt to acceptance.",
+      "Grill this project idea, then produce a PRD and issues.",
+      "Create a handoff packet for this project."
+    ],
+    "brandColor": "#2563EB"
+  }
+}
