@@ -6,6 +6,14 @@ A small public collection of portable AI skills.
 
 - `make-it-make-sense/` — a self-contained sense-making protocol for turning messy ideas, plans, documents, or decisions into clear artifacts with visible routing, trust markers, and safe capture behavior.
 - `scout/` — a generic triage protocol for deciding whether a new idea, link, tool, repo, framework, or opportunity deserves GO-now, PARK, or KILL.
+- `aac-process-design/` — guide AI workflow/process design with gates, owners, risks, and evaluation checkpoints.
+- `agent-spec-writer/` — turn product intent into agent-ready behavioral specs with Given/When/Then boundaries.
+- `agenttwin/` — produce public-safe agent evaluation packets and readiness reviews without exposing private rubrics.
+- `context-layer-generator/` — build structural, semantic, and philosophical context layers for a repo or project.
+- `run-project/` — orchestrate a full spec-backed project pipeline from grill to PRD, spec, context, issues, plans, execution, and acceptance.
+- `seeit/` — create lightweight visual maps and review artifacts for project understanding.
+- `skillify/` — turn a repository into a reusable agent-readable skill pack and project manifest.
+- `writing-plans/` — convert specs and issues into small, execution-ready implementation tasks.
 
 ## Install or use
 
