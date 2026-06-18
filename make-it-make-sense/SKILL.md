@@ -1,6 +1,37 @@
 ---
 name: make-it-make-sense
+display_name: Make It Make Sense
+viewer_summary: Route messy context into a clear artifact with trust markers and safe capture behavior.
 description: Use when a user asks to make sense of a confusing idea, decision, plan, document, transcript, system, unfamiliar domain, or stuck situation. Produces a visible router, chooses the right artifact shape, marks trust level on important claims, surfaces only useful insights, and follows the user's capture policy without saving sensitive material by default.
+bundle: run-project
+phase: sense
+category: sensemaking
+artifact_type: sensemaking-brief
+primary_command: /make-it-make-sense
+triggers:
+  - make sense of this
+  - clarify this idea
+  - turn this into something usable
+  - what am I missing
+inputs:
+  - Messy idea, plan, document, or stuck situation
+  - Optional source material
+  - Capture preferences
+outputs:
+  - Visible router
+  - Best-fit artifact
+  - Trust markers
+  - Useful insights and next action
+dependencies:
+  before: []
+  after:
+    - scout
+    - grill-me
+    - to-prd
+risk_level: low
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 ---
 
 # Make It Make Sense

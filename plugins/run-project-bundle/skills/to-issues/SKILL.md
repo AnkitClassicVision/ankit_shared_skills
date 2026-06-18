@@ -1,6 +1,37 @@
 ---
 name: to-issues
+display_name: To Issues
+viewer_summary: Break a plan, spec, or PRD into independently-grabbable vertical-slice issues.
 description: Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.
+bundle: run-project
+phase: execute
+category: plan
+artifact_type: issue-set
+primary_command: /to-issues
+triggers:
+  - turn this into issues
+  - create implementation tickets
+  - break down work
+  - vertical slices
+inputs:
+  - PRD, spec, or plan
+  - Repository or tracker constraints
+  - Acceptance criteria
+outputs:
+  - Tracer-bullet issue set
+  - Independent vertical slices
+  - Issue tracker-ready markdown
+dependencies:
+  before:
+    - to-prd
+    - agent-spec-writer
+    - seeit
+  after:
+    - writing-plans
+risk_level: medium
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 ---
 
 # To Issues

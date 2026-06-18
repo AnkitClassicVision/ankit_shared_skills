@@ -1,6 +1,38 @@
 ---
 name: aac-process-design
-description: "Design or audit an agentic AI workflow with process-first guardrails: deterministic spine, evidence, gates, monitoring, and recovery before autonomy. Use when a user is designing an AI workflow, agent flow, workflow automation, vendor AI deliverable, or autonomy review."
+display_name: AAC Process Design
+viewer_summary: Design or audit an AI workflow with deterministic spine, gates, evidence, and recovery.
+description: 'Design or audit an agentic AI workflow with process-first guardrails: deterministic spine, evidence, gates, monitoring, and recovery before autonomy. Use when a user is designing an AI workflow, agent flow, workflow automation, vendor AI deliverable, or autonomy review.'
+bundle: run-project
+phase: spec
+category: agent-safety
+artifact_type: agent-process-map
+primary_command: /aac-process-design
+triggers:
+  - agentic workflow design
+  - AI process design
+  - autonomy review
+  - AAC
+inputs:
+  - Workflow or automation idea
+  - Actors and systems
+  - Risk and evidence requirements
+  - Approval boundaries
+outputs:
+  - Process-first workflow map
+  - Gates and owners
+  - Monitoring and recovery plan
+  - Autonomy constraints
+dependencies:
+  before:
+    - grill-me
+  after:
+    - agent-spec-writer
+    - agenttwin
+risk_level: medium
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 ---
 
 # AAC Process Design, public version

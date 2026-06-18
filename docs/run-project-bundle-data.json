@@ -1,0 +1,1651 @@
+{
+  "summary": {
+    "bundle": "run-project",
+    "generated_at": "2026-06-18T02:03:19.518598+00:00",
+    "repo_name": "ankit_shared_skills",
+    "skill_count": 17,
+    "phase_counts": {
+      "sense": 3,
+      "shape": 5,
+      "spec": 4,
+      "execute": 3,
+      "transfer": 2
+    },
+    "category_counts": {
+      "interrogate": 1,
+      "sensemaking": 1,
+      "triage": 1,
+      "repo": 3,
+      "visualize": 2,
+      "agent-safety": 2,
+      "spec": 2,
+      "conductor": 1,
+      "plan": 2,
+      "transfer": 2
+    },
+    "risk_counts": {
+      "low": 5,
+      "medium": 11,
+      "high": 1
+    },
+    "side_effect_counts": {
+      "draft-only": 9,
+      "none": 2,
+      "can-write-files": 6
+    },
+    "missing_field_count": 0,
+    "warning_count": 0
+  },
+  "phases": [
+    {
+      "name": "sense",
+      "label": "Sense",
+      "description": "Triage, clarify, challenge, or route messy context."
+    },
+    {
+      "name": "shape",
+      "label": "Shape",
+      "description": "Visualize or analyze code and project structure."
+    },
+    {
+      "name": "spec",
+      "label": "Spec",
+      "description": "Turn intent into behavioral requirements or readiness criteria."
+    },
+    {
+      "name": "execute",
+      "label": "Execute",
+      "description": "Create implementation plans, issue sets, or project runs."
+    },
+    {
+      "name": "transfer",
+      "label": "Transfer",
+      "description": "Preserve or improve context for future agents."
+    }
+  ],
+  "skills": [
+    {
+      "name": "grill-me",
+      "display_name": "Grill Me",
+      "viewer_summary": "Stress-test a plan or codebase with dependency-first interrogation before building.",
+      "description": "Relentlessly interview the user to stress-test a plan, design, docs, or existing codebase before building. Use when the user says \"grill me\", \"grill docs\", \"grill with docs\", wants codebase/domain alignment, wants a CONTEXT.md or ADR-backed interrogation, or needs shared language before implementation.",
+      "bundle": "run-project",
+      "phase": "sense",
+      "phase_label": "Sense",
+      "category": "interrogate",
+      "artifact_type": "decision-tree",
+      "primary_command": "/grill-me",
+      "triggers": [
+        "grill me",
+        "grill this plan",
+        "stress test this",
+        "interrogate the docs"
+      ],
+      "inputs": [
+        "Plan, design, docs, or existing codebase",
+        "Known constraints",
+        "Evidence sources"
+      ],
+      "outputs": [
+        "Decision tree",
+        "Dependency questions",
+        "Risks and unresolved gates",
+        "Shared language"
+      ],
+      "dependencies": {
+        "before": [
+          "make-it-make-sense",
+          "scout"
+        ],
+        "after": [
+          "to-prd",
+          "agent-spec-writer",
+          "run-project"
+        ]
+      },
+      "risk_level": "low",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "grill-me/SKILL.md",
+      "sections": [
+        {
+          "title": "Operating loop",
+          "preview": "1. Start by finding available grounding: - User-provided docs, PRDs, specs, tickets, diagrams, transcripts. - Existing codebase files, tests, schema/migrations, README, and package scripts. - Domain docs such as `CONTEXT"
+        },
+        {
+          "title": "Docs-aware grilling",
+          "preview": "Before or during the interview, look for a bounded-context document:"
+        },
+        {
+          "title": "Codebase grilling checklist",
+          "preview": "Investigate only enough code to ask sharper questions:"
+        },
+        {
+          "title": "Durable output",
+          "preview": "When the user asks to save or update docs, or when a durable decision emerges, propose or make scoped doc edits:"
+        },
+        {
+          "title": "Answer style",
+          "preview": "One question per turn. - Be challenging but useful. - Prefer \"recommended answer: X, because Y\" over neutral brainstorming. - If code/docs already answer it, say \"I found this in `<path>`\" and do not ask. - If evidence c"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "make-it-make-sense",
+      "display_name": "Make It Make Sense",
+      "viewer_summary": "Route messy context into a clear artifact with trust markers and safe capture behavior.",
+      "description": "Use when a user asks to make sense of a confusing idea, decision, plan, document, transcript, system, unfamiliar domain, or stuck situation. Produces a visible router, chooses the right artifact shape, marks trust level on important claims, surfaces only useful insights, and follows the user's capture policy without saving sensitive material by default.",
+      "bundle": "run-project",
+      "phase": "sense",
+      "phase_label": "Sense",
+      "category": "sensemaking",
+      "artifact_type": "sensemaking-brief",
+      "primary_command": "/make-it-make-sense",
+      "triggers": [
+        "make sense of this",
+        "clarify this idea",
+        "turn this into something usable",
+        "what am I missing"
+      ],
+      "inputs": [
+        "Messy idea, plan, document, or stuck situation",
+        "Optional source material",
+        "Capture preferences"
+      ],
+      "outputs": [
+        "Visible router",
+        "Best-fit artifact",
+        "Trust markers",
+        "Useful insights and next action"
+      ],
+      "dependencies": {
+        "before": [],
+        "after": [
+          "scout",
+          "grill-me",
+          "to-prd"
+        ]
+      },
+      "risk_level": "low",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "make-it-make-sense/SKILL.md",
+      "sections": [
+        {
+          "title": "Activate when",
+          "preview": "Use this skill when the user says a natural variant of:"
+        },
+        {
+          "title": "Core definitions",
+          "preview": "The kind of sense-making requested."
+        },
+        {
+          "title": "Required visible router",
+          "preview": "Every activated response must begin with this block before analysis:"
+        },
+        {
+          "title": "Pillar 1: PLAN",
+          "preview": "Use only when the user brought thinking."
+        },
+        {
+          "title": "Pillar 2: SHAPE",
+          "preview": "Choose the output shape based on the job."
+        },
+        {
+          "title": "Pillar 3: TRUST",
+          "preview": "Trust markers are mandatory."
+        },
+        {
+          "title": "Pillar 4: INSIGHT",
+          "preview": "Only surface an insight if it passes all three filters."
+        },
+        {
+          "title": "Pillar 5: CAPTURE",
+          "preview": "Only run capture if the artifact is durable and the user's capture policy allows it."
+        },
+        {
+          "title": "Output templates",
+          "preview": "```text Routing: • Mode: Decision • Thinking brought: [yes/no] • Shape: matrix • Pillars firing: [list] • Why each skip: [skip reasons]"
+        },
+        {
+          "title": "Dependency manifest",
+          "preview": "The core skill has no hard external dependency. It works from this file alone."
+        },
+        {
+          "title": "How to personalize for another user",
+          "preview": "Before adapting this skill, answer:"
+        },
+        {
+          "title": "How to update this skill with AI",
+          "preview": "Use this prompt when asking another AI to update the skill:"
+        },
+        {
+          "title": "Public-safety checklist",
+          "preview": "Before publishing this skill, scan it for:"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "scout",
+      "display_name": "Scout",
+      "viewer_summary": "Triage an external thing, repo, idea, or opportunity into GO-now, PARK, or KILL.",
+      "description": "Use when a user asks whether a new external thing, idea, article, tool, repo, framework, competitor move, workflow, or opportunity is worth caring about now. Runs a memory-first triage, maps where the thing applies, and returns exactly one verdict: GO-now, PARK, or KILL.",
+      "bundle": "run-project",
+      "phase": "sense",
+      "phase_label": "Sense",
+      "category": "triage",
+      "artifact_type": "triage-verdict",
+      "primary_command": "/scout",
+      "triggers": [
+        "is this worth caring about",
+        "scout this",
+        "triage this tool",
+        "new repo or framework"
+      ],
+      "inputs": [
+        "Idea, link, tool, repo, framework, or opportunity",
+        "Existing memory/context",
+        "Decision criteria"
+      ],
+      "outputs": [
+        "GO-now/PARK/KILL verdict",
+        "Applicability map",
+        "Reasoning and next action"
+      ],
+      "dependencies": {
+        "before": [],
+        "after": [
+          "make-it-make-sense",
+          "grill-me"
+        ]
+      },
+      "risk_level": "low",
+      "side_effects": "none",
+      "requires_repo": false,
+      "requires_network": true,
+      "path": "scout/SKILL.md",
+      "sections": [
+        {
+          "title": "Core distinction",
+          "preview": "**Research maps what the thing is.** - **SCOUT decides whether the thing changes what you should do.**"
+        },
+        {
+          "title": "Verdicts",
+          "preview": "Return exactly one verdict."
+        },
+        {
+          "title": "Operating principle: scan before researching",
+          "preview": "Before deep research, check whether enough context already exists."
+        },
+        {
+          "title": "Branches",
+          "preview": "Choose one branch and say which branch you used."
+        },
+        {
+          "title": "Projection rule",
+          "preview": "Do not say \"this could be useful\" in the abstract."
+        },
+        {
+          "title": "Scoring dimensions",
+          "preview": "Score briefly, not as theater."
+        },
+        {
+          "title": "Required output shape",
+          "preview": "Use this shape unless the user asks for another format:"
+        },
+        {
+          "title": "Capture rule",
+          "preview": "If the verdict is durable, offer to capture it in the user's chosen system of record. Do not assume a specific memory product or private database."
+        },
+        {
+          "title": "Guardrails",
+          "preview": "Do not investigate before the context scan. - Do not re-argue a recent sound decision. - Do not call something GO-now unless it beats current load. - Do not mark APPLY without a real target and confidence level. - Do not"
+        },
+        {
+          "title": "Quick examples",
+          "preview": "```text Verdict: GO-now Decision delta: Add a 30-minute prototype to this week's plan because it directly reduces onboarding time for the active support workflow. Smallest safe next move: Build a read-only mock using 5 a"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "codebase-organizer",
+      "display_name": "Codebase Organizer",
+      "viewer_summary": "Analyze a repo into modules, hotspots, dependency maps, and run-project context artifacts.",
+      "description": "Universal codebase operations: analyze, organize, and architecturally deepen any repo. Two commands: /organize for read-only analysis and /deepen for multi-agent refactoring. Use when the user wants a codebase scan, deep module scoring, dependency mapping, architectural improvement, or code-to-skill conversion. Triggers: \"organize this repo\", \"/organize\", \"deepen this codebase\", \"/deepen\", \"improve architecture\", \"brownfield rescue\", \"codebase audit\", \"create a skill from my code\".",
+      "bundle": "run-project",
+      "phase": "shape",
+      "phase_label": "Shape",
+      "category": "repo",
+      "artifact_type": "repo-map",
+      "primary_command": "/organize",
+      "triggers": [
+        "organize this repo",
+        "/organize",
+        "codebase audit",
+        "module map",
+        "brownfield context"
+      ],
+      "inputs": [
+        "Repository path",
+        "Optional output directory",
+        "Optional domain/context docs"
+      ],
+      "outputs": [
+        "Module inventory",
+        "Dependency graph",
+        "Hotspots and orphan files",
+        ".run-project organizer report"
+      ],
+      "dependencies": {
+        "before": [
+          "grill-me"
+        ],
+        "after": [
+          "context-layer-generator",
+          "seeit",
+          "skillify"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "can-write-files",
+      "requires_repo": true,
+      "requires_network": false,
+      "path": "codebase-organizer/SKILL.md",
+      "sections": [
+        {
+          "title": "One-line pitch",
+          "preview": "Point it at any repo. Get a structured, skill-like decomposition with deep module scoring, dependency graph, circular dependency detection, orphaned file surfacing, and three-layer context extraction — all saved to `.run"
+        },
+        {
+          "title": "Invocation",
+          "preview": "``` /organize [path] ```"
+        },
+        {
+          "title": "When to use it",
+          "preview": "| Situation | Tool | Why | |-----------|------|-----| | Starting `/run-project` on brownfield | `/organize` | Establish baseline architecture before grilling | | During spec diagramming | `/organize` | Inject organized s"
+        },
+        {
+          "title": "Pipeline integration (automatic binding)",
+          "preview": "When `.run-project/` exists, the organizer auto-writes to:"
+        },
+        {
+          "title": "What it produces",
+          "preview": "``` repo/ src/ core/ -- 3 modules, 12 deps, 2 circular api/ -- REST surface, 4 routes, phi: true db/ -- migration files, schema drift detected tests/ -- coverage 34%, orphaned tests: 3 docs/ -- outdated (last edit 8 mont"
+        },
+        {
+          "title": "Deep module philosophy",
+          "preview": "This organizer applies the deep module philosophy consistently:"
+        },
+        {
+          "title": "/deepen — Multi-Agent Architectural Deepening Pipeline",
+          "preview": "When the user wants to **improve** the codebase (not just analyze it), run the `/deepen` pipeline. It is a 7-phase, multi-agent refactoring pipeline with human gates at Grill and Shape."
+        },
+        {
+          "title": "Cross-surface behavior",
+          "preview": "| Surface | How | |---------|-----| | **Hermes** | Runs `scripts/organize.py` directly. Full Python AST analysis. Git history extraction. | | **Claude Code** | Invokes Claude's built-in codebase analysis. Feeds into Clau"
+        },
+        {
+          "title": "Re-running for freshness",
+          "preview": "Context drifts. Re-run `/organize` when: - Major refactor completed - New modules added (3+ files or 1 new directory) - New dependencies introduced - Before starting a new feature branch on brownfield - Any time an AI ag"
+        },
+        {
+          "title": "Pitfalls",
+          "preview": "**Orphaned files are not always bad** — some are entry points, CLI scripts, or config. Verify before deleting. - **Circular deps in tests are common** — do not flag `test_*.py` circulars as critical. - **Low deep score d"
+        },
+        {
+          "title": "Version history",
+          "preview": "v3.0.0 (2026-05-28): Absorbed `codebase-deepen` into umbrella. Now covers /organize (analysis) and /deepen (refactoring) under one class-level skill. - v2.0.0 (2026-05-28): Surface-agnostic always-on organizer. Deep modu"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "context-layer-generator",
+      "display_name": "Context Layer Generator",
+      "viewer_summary": "Build structural, semantic, and philosophical context layers for safe agent work.",
+      "description": "Build three context layers (structural, semantic, philosophical) for a module or service, producing production-ready artifacts: a module manifest, behavioral contracts, and a decision log. Use when: (1) a dark code audit identifies high-risk modules, (2) proactively documenting any critical service, (3) a module's original authors have left the team, (4) onboarding engineers to unfamiliar code, or (5) preparing a module for safe AI-assisted refactoring. Run once per module — output becomes a template for the rest of the codebase. Do NOT use for: general code review (use code-reviewer), writing implementation specs (use agent_spec_writer), or refactoring code (just refactor directly).",
+      "bundle": "run-project",
+      "phase": "shape",
+      "phase_label": "Shape",
+      "category": "repo",
+      "artifact_type": "context-layer",
+      "primary_command": "/context-layer-generator",
+      "triggers": [
+        "context layer",
+        "structural semantic philosophical",
+        "document this module",
+        "module manifest"
+      ],
+      "inputs": [
+        "Module or service path",
+        "Existing code and docs",
+        "Behavioral contracts or ADRs"
+      ],
+      "outputs": [
+        "Structural layer",
+        "Semantic layer",
+        "Philosophical layer",
+        "Module manifest and decision log"
+      ],
+      "dependencies": {
+        "before": [
+          "codebase-organizer",
+          "agent-spec-writer"
+        ],
+        "after": [
+          "seeit",
+          "to-issues",
+          "skillify"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "can-write-files",
+      "requires_repo": true,
+      "requires_network": false,
+      "path": "context-layer-generator/SKILL.md",
+      "sections": [
+        {
+          "title": "Workflow",
+          "preview": "``` 1. Opening → Identify the module, get a brief description 2. Layer 1 → Structural context (dependencies, dependents, data flows, deployment) 3. Layer 2 → Semantic context (behavioral contracts per interface) 4. Layer"
+        },
+        {
+          "title": "Guardrails",
+          "preview": "**Never invent information.** Only include what the user provides. - **Capture unknowns explicitly.** If the user says \"I don't know,\" record it: `Reasoning unknown — original author departed. Treat as load-bearing; do n"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "improve-codebase-architecture",
+      "display_name": "Improve Codebase Architecture",
+      "viewer_summary": "Surface deep-module refactoring opportunities and architecture improvement reports.",
+      "description": "Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.",
+      "bundle": "run-project",
+      "phase": "shape",
+      "phase_label": "Shape",
+      "category": "repo",
+      "artifact_type": "architecture-report",
+      "primary_command": "/improve-codebase-architecture",
+      "triggers": [
+        "improve architecture",
+        "find refactoring opportunities",
+        "deep modules",
+        "make this more testable"
+      ],
+      "inputs": [
+        "Repository path",
+        "CONTEXT.md or domain language",
+        "ADR history",
+        "Existing tests"
+      ],
+      "outputs": [
+        "Deepening opportunities",
+        "Coupling and boundary report",
+        "Refactor candidates",
+        "Architecture recommendations"
+      ],
+      "dependencies": {
+        "before": [
+          "codebase-organizer"
+        ],
+        "after": [
+          "context-layer-generator",
+          "writing-plans"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": true,
+      "requires_network": false,
+      "path": "improve-codebase-architecture/SKILL.md",
+      "sections": [
+        {
+          "title": "Glossary",
+          "preview": "Use these terms exactly in every suggestion. Consistent language is the point — don't drift into \"component,\" \"service,\" \"API,\" or \"boundary.\" Full definitions in [LANGUAGE.md](LANGUAGE.md)."
+        },
+        {
+          "title": "Process",
+          "preview": "Read the project's domain glossary and any ADRs in the area you're touching first."
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "run-project-bundle-viewer",
+      "display_name": "Run Project Bundle Viewer",
+      "viewer_summary": "Build a static Brain Viewer dashboard from run-project bundle skill metadata.",
+      "description": "Build and refresh a static dashboard for the public run-project skill bundle by reading SKILL.md frontmatter, validating viewer metadata, and writing docs/run-project-bundle-dashboard.html plus docs/run-project-bundle-data.json. Use when a user asks to visualize the shared skills repo, make a Brain Viewer dashboard, inspect workflow lanes, or verify run-project bundle metadata.",
+      "bundle": "run-project",
+      "phase": "shape",
+      "phase_label": "Shape",
+      "category": "visualize",
+      "artifact_type": "html-dashboard",
+      "primary_command": "/run-project-bundle-viewer",
+      "triggers": [
+        "run project dashboard",
+        "Brain Viewer dashboard",
+        "visualize shared skills",
+        "render skill bundle"
+      ],
+      "inputs": [
+        "Clone of the shared skills repository",
+        "SKILL.md files with viewer-friendly YAML frontmatter",
+        "Optional output directory"
+      ],
+      "outputs": [
+        "docs/run-project-bundle-dashboard.html",
+        "docs/run-project-bundle-data.json",
+        "Metadata validation summary"
+      ],
+      "dependencies": {
+        "before": [
+          "codebase-organizer"
+        ],
+        "after": [
+          "seeit"
+        ]
+      },
+      "risk_level": "low",
+      "side_effects": "can-write-files",
+      "requires_repo": true,
+      "requires_network": false,
+      "path": "run-project-bundle-viewer/SKILL.md",
+      "sections": [
+        {
+          "title": "One-line Pitch",
+          "preview": "Turn the shared skills repository into a static dashboard that Brain Viewer, docs sites, or an agent can open without custom backend code."
+        },
+        {
+          "title": "When To Use",
+          "preview": "Use this skill when the user asks to:"
+        },
+        {
+          "title": "Do Not Use For",
+          "preview": "Running the `/run-project` delivery pipeline itself. - Editing private skills or non-public skill repositories unless explicitly scoped. - Publishing, deploying, pushing, or merging the dashboard without separate approva"
+        },
+        {
+          "title": "Inputs",
+          "preview": "Repository root containing one folder per skill and a `SKILL.md` inside each folder. - Viewer metadata in each skill frontmatter: `display_name`, `viewer_summary`, `bundle`, `phase`, `category`, `artifact_type`, `primary"
+        },
+        {
+          "title": "Outputs",
+          "preview": "`docs/run-project-bundle-data.json` — normalized metadata for Brain Viewer and other renderers. - `docs/run-project-bundle-dashboard.html` — a self-contained static dashboard with search, filters, phase lanes, risk chips"
+        },
+        {
+          "title": "Workflow",
+          "preview": "1. Work from the repository root. 2. Make sure each public bundle skill has viewer-friendly frontmatter using the recommended vocabulary: - `phase`: `sense`, `shape`, `spec`, `execute`, or `transfer`. - `category`: `cond"
+        },
+        {
+          "title": "Output Format",
+          "preview": "The JSON artifact uses this shape:"
+        },
+        {
+          "title": "Guardrails",
+          "preview": "Keep the repo public-safe. Do not add private names, emails, phone numbers, account identifiers, credentials, client data, patient data, internal URLs, or local machine paths. - The builder is file-writing only. It may c"
+        },
+        {
+          "title": "Self-Verification",
+          "preview": "Before reporting completion, verify:"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "seeit",
+      "display_name": "SEEIT",
+      "viewer_summary": "Create a lightweight visual map or review artifact for a project, codebase, or agent workflow.",
+      "description": "Comprehension instrument for AI-mediated work. Triggers when the user says \"seeit\", \"show me the shape\", \"make this visible\", or asks to see/understand/visualize a project, codebase, agent workflow, spec, or AI build at a structural level. Use this skill whenever the user wants to understand the SHAPE of something the AI is building or has built — code, agent workflows, agent runs, multi-step AI processes, spec compliance, or anything beyond plain chat. Use even when the user asks indirectly: \"what did Codex just build\", \"is this spec doing what it says\", \"can you map out this agent\", \"I can't see what this does\". The skill gathers from all available sources, maps the project structure, picks the right visual treatment for its actual shape, verifies adversarially, and produces an interactive HTML file the user opens to comprehend the build in 60 seconds.",
+      "bundle": "run-project",
+      "phase": "shape",
+      "phase_label": "Shape",
+      "category": "visualize",
+      "artifact_type": "html-artifact",
+      "primary_command": "/seeit",
+      "triggers": [
+        "seeit",
+        "show me the shape",
+        "make this visible",
+        "visualize this workflow"
+      ],
+      "inputs": [
+        "Project, codebase, spec, or agent workflow context",
+        "Desired visual mode",
+        "Proof or boundary details"
+      ],
+      "outputs": [
+        "Interactive HTML artifact",
+        "Structural map",
+        "Operator interpretation layer",
+        "Visual QA notes"
+      ],
+      "dependencies": {
+        "before": [
+          "context-layer-generator",
+          "codebase-organizer"
+        ],
+        "after": [
+          "to-issues",
+          "run-project-bundle-viewer"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "can-write-files",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "seeit/SKILL.md",
+      "sections": [
+        {
+          "title": "When to activate",
+          "preview": "Triggers: \"seeit\" / \"show me the shape\" / \"make this visible\" / asks to visualize/map/understand an AI artifact / expresses comprehension gap on AI-built work. When unsure, default to triggering."
+        },
+        {
+          "title": "Identity and purpose",
+          "preview": "Close the comprehension gap between humans and AI-mediated work. Produce a structured, visual, interactive picture readable in 60 seconds. Output answers: shape, state, drift, risk, openness."
+        },
+        {
+          "title": "The five pillars (run every time, in order)",
+          "preview": "1. GATHER — pull from input, repo, available connectors such as project docs, cloud inventory, CRM, issue tracker, or prior handoffs, web search if blocked, past chats. Ask ≤2 multiple-choice clarifying questions only if"
+        },
+        {
+          "title": "Locked visual vocabulary v0.1",
+          "preview": "Node shapes: rectangle (component) | rounded rectangle (AI-mediated) | cylinder (data store) | hexagon (external system) | diamond (decision)"
+        },
+        {
+          "title": "Output format",
+          "preview": "Single-file interactive HTML, self-contained (all CSS/JS inline, no external CDN deps). Must include: title with project name + type + timestamp; the picture in chosen visual treatment; click-to-expand on every node show"
+        },
+        {
+          "title": "Mode-specific guidance",
+          "preview": "agent_cockpit / operator_dashboard → When visualizing an agent workflow that operators must use, add a visible interpretation layer before or beside the map: how to use it, what colors mean, what shapes mean, what lines "
+        },
+        {
+          "title": "Clarification rules",
+          "preview": "Intent clear → proceed. One dominant interpretation → proceed, flag in assumptions. Truly blocking → one multiple-choice question. Still blocked → one more, max 2 total. Beyond 2 → produce partial picture with gaps marke"
+        },
+        {
+          "title": "Graceful degradation",
+          "preview": "File creation + present_files → full flow. File creation only → write file, give path. No file creation → fenced code block + save instruction. Connectors available → use in GATHER. No connectors → pasted input plus repo"
+        },
+        {
+          "title": "The 60-second comprehension test",
+          "preview": "Internal quality bar: could a colleague unfamiliar with this project look at the picture for 60 seconds and correctly explain (a) what it does, (b) where it is right now, (c) what could break, (d) what's still unresolved"
+        },
+        {
+          "title": "What seeit does NOT do",
+          "preview": "Does not replace code review or testing. Does not generate/fix/modify the artifact. Does not visualize pure human projects (hiring, ops, strategy). Does not produce decorative diagrams — every element encodes information"
+        },
+        {
+          "title": "Operating principle",
+          "preview": "The picture is the contract. If reality and picture disagree, the question is which to update. Never silently let the picture drift from reality. Better a smaller, accurate picture than a larger, optimistic one."
+        },
+        {
+          "title": "Version",
+          "preview": "v0.1 — initial portable skill. v1.0 after first three real tests pass (data-entry v1 agent, Drafter+Reviewer workflow, live agent run static)."
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "aac-process-design",
+      "display_name": "AAC Process Design",
+      "viewer_summary": "Design or audit an AI workflow with deterministic spine, gates, evidence, and recovery.",
+      "description": "Design or audit an agentic AI workflow with process-first guardrails: deterministic spine, evidence, gates, monitoring, and recovery before autonomy. Use when a user is designing an AI workflow, agent flow, workflow automation, vendor AI deliverable, or autonomy review.",
+      "bundle": "run-project",
+      "phase": "spec",
+      "phase_label": "Spec",
+      "category": "agent-safety",
+      "artifact_type": "agent-process-map",
+      "primary_command": "/aac-process-design",
+      "triggers": [
+        "agentic workflow design",
+        "AI process design",
+        "autonomy review",
+        "AAC"
+      ],
+      "inputs": [
+        "Workflow or automation idea",
+        "Actors and systems",
+        "Risk and evidence requirements",
+        "Approval boundaries"
+      ],
+      "outputs": [
+        "Process-first workflow map",
+        "Gates and owners",
+        "Monitoring and recovery plan",
+        "Autonomy constraints"
+      ],
+      "dependencies": {
+        "before": [
+          "grill-me"
+        ],
+        "after": [
+          "agent-spec-writer",
+          "agenttwin"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "aac-process-design/SKILL.md",
+      "sections": [
+        {
+          "title": "Workflow",
+          "preview": "1. Frame the workflow boundary - What event starts the workflow? - What outcome proves value? - Which actions are read-only, draft-only, human-approved, or autonomous? - What consequence class applies if the workflow is "
+        },
+        {
+          "title": "Readiness rule",
+          "preview": "Do not call a workflow ready, production-ready, acceptable, or good to ship unless:"
+        },
+        {
+          "title": "Output style",
+          "preview": "Be concise and decision-oriented. Prefer:"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "agent-spec-writer",
+      "display_name": "Agent Spec Writer",
+      "viewer_summary": "Write behavioral specs precise enough for autonomous coding agents.",
+      "description": "Write specifications precise enough for autonomous AI coding agents to implement without human intervention. Use when: user wants to spec a feature, system, or tool for agent implementation. Do NOT use for: writing code directly (let agents implement), creating skills (use skill-creator).",
+      "bundle": "run-project",
+      "phase": "spec",
+      "phase_label": "Spec",
+      "category": "spec",
+      "artifact_type": "markdown-spec",
+      "primary_command": "/agent-spec-writer",
+      "triggers": [
+        "write a spec",
+        "agent spec",
+        "spec this out",
+        "behavioral contract"
+      ],
+      "inputs": [
+        "Rough feature or system description",
+        "Existing system context",
+        "Integration boundaries"
+      ],
+      "outputs": [
+        "Behavioral contract",
+        "Non-behaviors",
+        "Behavioral scenarios",
+        "Ambiguity warnings"
+      ],
+      "dependencies": {
+        "before": [
+          "grill-me",
+          "to-prd"
+        ],
+        "after": [
+          "context-layer-generator",
+          "to-issues",
+          "writing-plans"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "none",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "agent-spec-writer/SKILL.md",
+      "sections": [
+        {
+          "title": "HARD RULES",
+          "preview": "**Never invent requirements** the user didn't describe. If you think something is missing, flag it as an Ambiguity Warning — don't fill it in yourself. - **Write behavioral scenarios that cannot be gamed** by an agent th"
+        },
+        {
+          "title": "WORKFLOW (4 phases, strictly sequential)",
+          "preview": "Ask the user:"
+        },
+        {
+          "title": "OUTPUT FORMAT",
+          "preview": "Produce a markdown specification document with these sections:"
+        },
+        {
+          "title": "ARGUMENTS",
+          "preview": "The skill accepts an optional description of what the user wants to build. If provided, skip Phase 1 and proceed to Phase 2. If not provided, start with Phase 1."
+        },
+        {
+          "title": "When to Invoke",
+          "preview": "**Use this skill when:** - User wants to spec a feature, system, or tool for agent implementation - User says \"write a spec\", \"spec this out\", \"agent spec\", or \"/agent_spec_writer\" - User wants a document precise enough "
+        },
+        {
+          "title": "Input Contract",
+          "preview": "| Parameter | Type | Required | Description | |-----------|------|----------|-------------| | description | string | No | Rough description of what the user wants to build. If provided, skip Phase 1 discovery question. I"
+        },
+        {
+          "title": "Output Contract",
+          "preview": "**On success:** A complete markdown specification document containing: System Overview, Behavioral Contract, Explicit Non-Behaviors, Integration Boundaries, Behavioral Scenarios (minimum 7), Ambiguity Warnings, and Imple"
+        },
+        {
+          "title": "Guardrails",
+          "preview": "**PHI:** This skill does not handle PHI. Specs should never contain real patient data. Use placeholder/synthetic data in behavioral scenarios. - **Rate limits:** No external API calls. This is a conversational skill — la"
+        },
+        {
+          "title": "Self-Verification",
+          "preview": "Before delivering output, the skill MUST verify: - [ ] All 4 discovery phases were completed (or user provided sufficient initial description) - [ ] Spec contains all 7 required sections (System Overview through Implemen"
+        },
+        {
+          "title": "Failure Path",
+          "preview": "| Failure Mode | Detection | Action | Escalation | |-------------|-----------|--------|------------| | User requirements too vague | Cannot produce meaningful behavioral contract after Phase 2 | State specifically what i"
+        },
+        {
+          "title": "Escalation Owner",
+          "preview": "**Primary:** project owner **Backup:** project owner **Contact method:** Claude Code session or issue tracker task"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "agenttwin",
+      "display_name": "AgentTwin",
+      "viewer_summary": "Score, map, visualize, or accept an AI agent/workflow with public-safe readiness review.",
+      "description": "Diagnose, score, map, visualize, or accept an AI agent or workflow using a public closed-loop readiness report. Use for agent specs, automation workflows, vendor proposals, and agentic builds.",
+      "bundle": "run-project",
+      "phase": "spec",
+      "phase_label": "Spec",
+      "category": "agent-safety",
+      "artifact_type": "readiness-report",
+      "primary_command": "/agenttwin",
+      "triggers": [
+        "agent readiness",
+        "acceptance review",
+        "score this agent",
+        "agent twin"
+      ],
+      "inputs": [
+        "Agent spec or workflow",
+        "Evidence and eval results",
+        "Risk boundaries",
+        "Public-safe context"
+      ],
+      "outputs": [
+        "Readiness score",
+        "Closed-loop review",
+        "Public-safe evaluation packet",
+        "Acceptance decision"
+      ],
+      "dependencies": {
+        "before": [
+          "aac-process-design",
+          "agent-spec-writer"
+        ],
+        "after": [
+          "run-project"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "agenttwin/SKILL.md",
+      "sections": [
+        {
+          "title": "When to use",
+          "preview": "Use when the user is doing any of these on an AI agent, automation, or agentic workflow:"
+        },
+        {
+          "title": "Report shape",
+          "preview": "Produce a self-contained markdown or HTML report with two views:"
+        },
+        {
+          "title": "Five closed-loop properties",
+          "preview": "Bounded: the workflow has a clear box, allowed actions, refused actions, and stop condition. - Grounded: important claims and decisions cite source evidence that can be rechecked. - Gated: risky writes, sends, labels, mo"
+        },
+        {
+          "title": "Grading",
+          "preview": "A: all five properties healthy. - B: four healthy, one needs work, no broken property. - C: at least one broken property or two needs-work properties. - D: two or more broken properties. - F: three or more broken propert"
+        },
+        {
+          "title": "Verification before delivery",
+          "preview": "Before delivering the report:"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "to-prd",
+      "display_name": "To PRD",
+      "viewer_summary": "Turn understood context into a PRD artifact ready for issue-tracker handoff.",
+      "description": "Turn the current conversation context into a PRD and produce a PRD artifact that can be pasted into the project issue tracker. Use when user wants to create a PRD from the current context.",
+      "bundle": "run-project",
+      "phase": "spec",
+      "phase_label": "Spec",
+      "category": "spec",
+      "artifact_type": "prd",
+      "primary_command": "/to-prd",
+      "triggers": [
+        "create a PRD",
+        "turn this into a PRD",
+        "product requirements",
+        "write the PRD"
+      ],
+      "inputs": [
+        "Current conversation context",
+        "User stories or problem framing",
+        "Known decisions and constraints"
+      ],
+      "outputs": [
+        "PRD artifact",
+        "Problem and solution framing",
+        "User stories",
+        "Acceptance criteria"
+      ],
+      "dependencies": {
+        "before": [
+          "grill-me",
+          "make-it-make-sense"
+        ],
+        "after": [
+          "agent-spec-writer",
+          "to-issues"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "to-prd/SKILL.md",
+      "sections": [
+        {
+          "title": "Process",
+          "preview": "1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the PRD, and respect any ADRs in the area you're touching."
+        },
+        {
+          "title": "Problem Statement",
+          "preview": "The problem that the user is facing, from the user's perspective."
+        },
+        {
+          "title": "Solution",
+          "preview": "The solution to the problem, from the user's perspective."
+        },
+        {
+          "title": "User Stories",
+          "preview": "A LONG, numbered list of user stories. Each user story should be in the format of:"
+        },
+        {
+          "title": "Implementation Decisions",
+          "preview": "A list of implementation decisions that were made. This can include:"
+        },
+        {
+          "title": "Testing Decisions",
+          "preview": "A list of testing decisions that were made. Include:"
+        },
+        {
+          "title": "Out of Scope",
+          "preview": "A description of the things that are out of scope for this PRD."
+        },
+        {
+          "title": "Further Notes",
+          "preview": "Any further notes about the feature."
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "run-project",
+      "display_name": "Run Project",
+      "viewer_summary": "Conductor for the full project pipeline from grill to acceptance.",
+      "description": "Universal project conductor. One command, full pipeline. Auto-detects everything.",
+      "bundle": "run-project",
+      "phase": "execute",
+      "phase_label": "Execute",
+      "category": "conductor",
+      "artifact_type": "project-run",
+      "primary_command": "/run-project",
+      "triggers": [
+        "run project",
+        "/run-project",
+        "plan this build end to end",
+        "full project pipeline"
+      ],
+      "inputs": [
+        "Project or repo path",
+        "User intent",
+        "Existing run-project state",
+        "Companion skills"
+      ],
+      "outputs": [
+        "PRD",
+        "Agent spec",
+        "Context layer",
+        "SEEIT artifact",
+        "Issues",
+        "Plan",
+        "Acceptance report"
+      ],
+      "dependencies": {
+        "before": [
+          "grill-me",
+          "to-prd",
+          "agent-spec-writer",
+          "context-layer-generator",
+          "seeit",
+          "to-issues",
+          "writing-plans"
+        ],
+        "after": [
+          "handoff",
+          "agenttwin"
+        ]
+      },
+      "risk_level": "high",
+      "side_effects": "can-write-files",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "run-project/SKILL.md",
+      "sections": [
+        {
+          "title": "Invocation",
+          "preview": "``` /run-project [path] ```"
+        },
+        {
+          "title": "What It Does",
+          "preview": "Runs any repo through a pipeline that produces a spec-backed, issue-tracker-ready implementation plan."
+        },
+        {
+          "title": "Self-contained public bundle",
+          "preview": "This public bundle is intended to be installed as a set. If the repository folders are copied together into a skills directory, `/run-project` has all named planning and artifact dependencies locally: `grill-me`, `to-prd"
+        },
+        {
+          "title": "Auto-Detection (No Flags Needed)",
+          "preview": "| Decision | How It Decides | |----------|---------------| | **AAC pre-phase?** | Sees \"agent\", \"workflow\", \"automation\", \"bot\", \"RAG\", \"LLM pipeline\" in intent or finds `agent_registry`, `aac-v2`, `agenttwin` files → ru"
+        },
+        {
+          "title": "Human Gates (Two Only)",
+          "preview": "1. **After Grill** — \"Good to write the PRD?\" (yes/no) 2. **After SEEIT** — \"Looks right? Proceed to issues?\" (yes/no)"
+        },
+        {
+          "title": "Global Guardrails (Apply to ALL phases)",
+          "preview": "If the user asks a tangential question (e.g., \"can we create a universal method for X?\"), acknowledge briefly, capture the idea, then **ask**: \"Finish current slice first, or pause to discuss?\" - User signal to defer: \"W"
+        },
+        {
+          "title": "Pipeline",
+          "preview": ""
+        },
+        {
+          "title": "Blind Eval Rules",
+          "preview": "1. **Fresh context**: Eval subagent gets ONLY the artifact. No handoff notes. 2. **Hidden until QA**: Files in `.run-project/evals/`. No phase references them. 3. **Accumulative**: Each eval builds on prior evals but eac"
+        },
+        {
+          "title": "Eval Generation Prompt",
+          "preview": "Each eval subagent receives:"
+        },
+        {
+          "title": "Dual-Persistence Convention: `.run-project/` vs `.skill-pack/`",
+          "preview": "| Directory | Purpose | Lifetime | Created By | |-----------|---------|----------|------------| | `.run-project/` | Pipeline state — phase tracker, evals, handoffs, QA results | Ephemeral per project run | `/run-project`"
+        },
+        {
+          "title": "Context Layer Decision Logic",
+          "preview": "When reaching Phase 6, the pipeline decides:"
+        },
+        {
+          "title": "Context Flow",
+          "preview": "Each phase reads the previous phase's output. No repeated questions. If an answer exists in: - Project memory or prior handoffs - `.run-project/handoffs/` - `.skill-pack/PROJECT.md` or `context/*.json` - Repo ADRs / CONT"
+        },
+        {
+          "title": "Files Created",
+          "preview": "``` .run-project/ state.json # Current phase, resume point handoffs/ # Phase outputs for next phase prd.md agent-spec.md context-layer.md # Or HANDOFF.md (greenfield fast-path) seeit.html issues.md # Or merged into HANDO"
+        },
+        {
+          "title": "Coding-agent handoff",
+          "preview": "When the user asks to finish a `/run-project` effort in a local coding-agent session, create a repo-local resume context at `.run-project/handoffs/codex-cli-resume-context.md`, launch the coding agent from the repo with "
+        },
+        {
+          "title": "Cross-Surface Dispatch",
+          "preview": "| Phase | Hermes | Claude Code | Codex | |-------|--------|-------------|-------| | Grill | `grill-me` | `grill-me` | `grill-me` | | PRD | `to-prd` | `to-prd` | `to-prd` | | Agent Spec | `agent-spec-writer` | `agent-spec"
+        },
+        {
+          "title": "Dependencies",
+          "preview": "Required: - `grill-me`, `to-prd`, `to-issues`, `handoff` - `agent-spec-writer`, `context-layer-generator` - `seeit`, `writing-plans`, `skillify` - `codebase-organizer`, `improve-codebase-architecture` - the available loc"
+        },
+        {
+          "title": "Version History",
+          "preview": "v2.1.0 (2026-05-28): Blind evals after every artifact phase. Hidden until Execute QA. - v2.0.0 (2026-05-28): Simplified to zero flags. Auto-detect everything. - v1.1.0 (2026-05-28): Added Dark Factory QA integration - v1"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "to-issues",
+      "display_name": "To Issues",
+      "viewer_summary": "Break a plan, spec, or PRD into independently-grabbable vertical-slice issues.",
+      "description": "Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.",
+      "bundle": "run-project",
+      "phase": "execute",
+      "phase_label": "Execute",
+      "category": "plan",
+      "artifact_type": "issue-set",
+      "primary_command": "/to-issues",
+      "triggers": [
+        "turn this into issues",
+        "create implementation tickets",
+        "break down work",
+        "vertical slices"
+      ],
+      "inputs": [
+        "PRD, spec, or plan",
+        "Repository or tracker constraints",
+        "Acceptance criteria"
+      ],
+      "outputs": [
+        "Tracer-bullet issue set",
+        "Independent vertical slices",
+        "Issue tracker-ready markdown"
+      ],
+      "dependencies": {
+        "before": [
+          "to-prd",
+          "agent-spec-writer",
+          "seeit"
+        ],
+        "after": [
+          "writing-plans"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "to-issues/SKILL.md",
+      "sections": [
+        {
+          "title": "Process",
+          "preview": "Work from whatever is already in the conversation context. If the user passes an issue reference (issue number, URL, or path) as an argument, fetch it from the issue tracker and read its full body and comments."
+        },
+        {
+          "title": "Parent",
+          "preview": "A reference to the parent issue on the issue tracker (if the source was an existing issue, otherwise omit this section)."
+        },
+        {
+          "title": "What to build",
+          "preview": "A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation."
+        },
+        {
+          "title": "Acceptance criteria",
+          "preview": "[ ] Criterion 1 - [ ] Criterion 2 - [ ] Criterion 3"
+        },
+        {
+          "title": "Blocked by",
+          "preview": "A reference to the blocking ticket (if any)"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "writing-plans",
+      "display_name": "Writing Plans",
+      "viewer_summary": "Convert specs and issues into small ordered implementation tasks with verification checkpoints.",
+      "description": "Use when writing implementation plans with bite-sized tasks, file paths, ordered steps, verification checkpoints, and handoff-ready execution detail.",
+      "bundle": "run-project",
+      "phase": "execute",
+      "phase_label": "Execute",
+      "category": "plan",
+      "artifact_type": "implementation-plan",
+      "primary_command": "/writing-plans",
+      "triggers": [
+        "write implementation plan",
+        "bite-sized tasks",
+        "execution plan",
+        "plan this build"
+      ],
+      "inputs": [
+        "Spec, PRD, or issue set",
+        "File paths and repo constraints",
+        "Verification requirements"
+      ],
+      "outputs": [
+        "Ordered implementation plan",
+        "Small tasks",
+        "Verification checkpoints",
+        "Handoff-ready execution detail"
+      ],
+      "dependencies": {
+        "before": [
+          "to-issues",
+          "agent-spec-writer"
+        ],
+        "after": [
+          "run-project"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "writing-plans/SKILL.md",
+      "sections": [
+        {
+          "title": "Overview",
+          "preview": "Write comprehensive implementation plans assuming the implementer has zero context for the codebase and questionable taste. Document everything they need: which files to touch, complete code, testing commands, docs to ch"
+        },
+        {
+          "title": "When to Use",
+          "preview": "**Always use before:** - Implementing multi-step features - Breaking down complex requirements - Delegating to subagents via a local coding agent or executor"
+        },
+        {
+          "title": "Bite-Sized Task Granularity",
+          "preview": "**Each task = 2-5 minutes of focused work.**"
+        },
+        {
+          "title": "Plan Document Structure",
+          "preview": "Every plan MUST start with:"
+        },
+        {
+          "title": "Writing Process",
+          "preview": "Read and understand: - Feature requirements - Design documents or user description - Acceptance criteria - Constraints"
+        },
+        {
+          "title": "Principles",
+          "preview": "**Bad:** Copy-paste validation in 3 places **Good:** Extract validation function, use everywhere"
+        },
+        {
+          "title": "Common Mistakes",
+          "preview": "**Bad:** \"Add authentication\" **Good:** \"Create User model with email and password_hash fields\""
+        },
+        {
+          "title": "Execution Handoff",
+          "preview": "After saving the plan, offer the execution approach:"
+        },
+        {
+          "title": "Remember",
+          "preview": "``` Bite-sized tasks (2-5 min each) Exact file paths Complete code (copy-pasteable) Exact commands with expected output Verification steps DRY, YAGNI, TDD Frequent commits ```"
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "handoff",
+      "display_name": "Handoff",
+      "viewer_summary": "Compact project state into a redacted continuation packet for another agent or session.",
+      "description": "Compact the current conversation into a handoff document for another agent to pick up.",
+      "bundle": "run-project",
+      "phase": "transfer",
+      "phase_label": "Transfer",
+      "category": "transfer",
+      "artifact_type": "handoff-packet",
+      "primary_command": "/handoff",
+      "triggers": [
+        "handoff this",
+        "summarize for next agent",
+        "continue in another session",
+        "resume packet"
+      ],
+      "inputs": [
+        "Current conversation or project state",
+        "Next-session purpose",
+        "Sensitive data constraints"
+      ],
+      "outputs": [
+        "Redacted handoff document",
+        "Resume instructions",
+        "Open questions",
+        "Known decisions"
+      ],
+      "dependencies": {
+        "before": [
+          "run-project",
+          "writing-plans",
+          "skillify"
+        ],
+        "after": []
+      },
+      "risk_level": "low",
+      "side_effects": "draft-only",
+      "requires_repo": false,
+      "requires_network": false,
+      "path": "handoff/SKILL.md",
+      "sections": [],
+      "missing_fields": [],
+      "warnings": []
+    },
+    {
+      "name": "skillify",
+      "display_name": "Skillify",
+      "viewer_summary": "Turn a repository into a persistent agent-readable skill pack and project manifest.",
+      "description": "Turn any repository into a structured, skill-like decomposition that stays alive for context at all times. Invoke during spec diagramming, brownfield exploration, or at any point in a repo's lifecycle. Auto-creates a skill-pack directory with PROJECT.md (repo-as-skill manifest), context layers, and ADRs. Consumed by /run-project phases automatically. Works on any language.",
+      "bundle": "run-project",
+      "phase": "transfer",
+      "phase_label": "Transfer",
+      "category": "transfer",
+      "artifact_type": "skill-pack",
+      "primary_command": "/skillify",
+      "triggers": [
+        "skillify this repo",
+        "repo as skill",
+        "create skill pack",
+        "project manifest"
+      ],
+      "inputs": [
+        "Repository path",
+        "Organizer output",
+        "Public interfaces and ADRs"
+      ],
+      "outputs": [
+        ".skill-pack/PROJECT.md",
+        "Context JSON layers",
+        "Interfaces",
+        "Inferred ADRs"
+      ],
+      "dependencies": {
+        "before": [
+          "codebase-organizer",
+          "context-layer-generator"
+        ],
+        "after": [
+          "handoff",
+          "run-project"
+        ]
+      },
+      "risk_level": "medium",
+      "side_effects": "can-write-files",
+      "requires_repo": true,
+      "requires_network": false,
+      "path": "skillify/SKILL.md",
+      "sections": [
+        {
+          "title": "One-line pitch",
+          "preview": "Point it at any repo. Get a `.skill-pack/` manifest that turns the repo into a consumable skill for agents. Three context layers, annotated interfaces, inferred ADRs — machine-readable, always fresh, never destructive. W"
+        },
+        {
+          "title": "Invocation",
+          "preview": "``` /skillify [path] ```"
+        },
+        {
+          "title": "When to use it",
+          "preview": "| Situation | Why | |-----------|-----| | Starting `/run-project` on brownfield | Give the pipeline a pre-built skill manifest | | During spec diagramming | `.skill-pack/PROJECT.md` feeds into SEEIT | | Post-refactor aud"
+        },
+        {
+          "title": "What it produces",
+          "preview": "``` .skill-pack/ PROJECT.md # Repo-as-skill manifest context/ structural.json # Module map, import graph, circular deps semantic.json # Type signatures, contracts, entry points philosophical.json # Deep scores, hotspots,"
+        },
+        {
+          "title": "Tiered analysis",
+          "preview": "| Tier | Trigger | What gets analyzed | |------|---------|------------------| | **Surface** | <100 LOC | File map, extensions, module names, basic metadata | | **Shallow** | 100–2000 LOC | + AST parsing for Python, funct"
+        },
+        {
+          "title": "PROJECT.md format",
+          "preview": "```yaml --- name: inventory type: service tier: deep generated: 2026-05-29T00:51:47Z ---"
+        },
+        {
+          "title": "Role",
+          "preview": "One-paragraph description auto-inferred from repo name + module names."
+        },
+        {
+          "title": "Module Map",
+          "preview": "| Module | Deep Score | Type | Files | |--------|-----------|------|-------| | db | 8.4 | Data layer | 3 files | | engine | 12.1 | Business logic | 5 files |"
+        },
+        {
+          "title": "Entry Points",
+          "preview": "`src/main.py` — CLI entry - `src/api/app.py` — Web server"
+        },
+        {
+          "title": "Interfaces",
+          "preview": "`db` — 4 classes, 2 functions - `engine` — 7 functions"
+        },
+        {
+          "title": "Non-Goals",
+          "preview": "No auto-write to external systems - (Extracted from PRD.md if present)"
+        },
+        {
+          "title": "Boundaries",
+          "preview": "Decision-support only - (Extracted from AGENT_SPEC.md if present)"
+        },
+        {
+          "title": "Context Files",
+          "preview": "`context/structural.json` — machine-readable module map + import graph - `context/semantic.json` — contracts + entry points - `context/philosophical.json` — deep scores + hotspots + recommendations"
+        },
+        {
+          "title": "ADRs",
+          "preview": "`adr-001.md` — Language choice - `adr-002.md` — Database choice - `adr-003.md` — Web framework - `adr-004.md` — UI approach - `adr-005.md` — Plugin architecture (if detected) - `adr-006.md` — Testing approach ```"
+        },
+        {
+          "title": "Pipeline integration",
+          "preview": "``` /run-project [path] ↓ Phase 1: Grill ↓ detects .skill-pack/ exists Auto-loads PROJECT.md → module map, boundaries, ADRs ↓ skips redundant questions Phase 3: Context Layer ↓ reads structural.json, semantic.json, philo"
+        },
+        {
+          "title": "Why `.skill-pack/` instead of `.run-project/`",
+          "preview": "`.run-project/` is **pipeline state** — phase tracker, evals, handoffs - `.skill-pack/` is **repo identity** — the repo's skill manifest, versioned with repo - `.run-project/` is ephemeral; `.skill-pack/` travels with th"
+        },
+        {
+          "title": "Re-running for freshness",
+          "preview": "| Trigger | Action | |---------|--------| | `/run-project` starts and `.skill-pack/` is >7 days old | Auto-re-skillify | | Major refactor completed | Re-run `/skillify` | | 3+ new files or 1 new directory | Re-run | | Ne"
+        },
+        {
+          "title": "Cross-surface behavior",
+          "preview": "| Surface | How | |---------|-----| | **Agent CLI** | Runs `scripts/skillify.py` directly. Full AST plus git analysis when available. | | **Coding agent** | Uses built-in analysis, falls back to `skillify.py` if availabl"
+        },
+        {
+          "title": "Pitfalls",
+          "preview": "**Execution Focus Rule**: When user is mid-execution of a multi-slice project (especially Execute phase), complete the current slice before discussing skill evolution, framework design, or meta-tooling improvements. If t"
+        },
+        {
+          "title": "Version history",
+          "preview": "v2.0.0 (2026-05-29): Tiered analysis (surface/shallow/deep). Live repo scanning (never stale). Universal language support. FastAPI/Flask/Django detection. HTMX/React/Vue detection. Timestamped snapshots. Deep module scor"
+        },
+        {
+          "title": "References",
+          "preview": "`references/dual-persistence-convention.md` — Full explanation of `.run-project/` vs `.skill-pack/` distinction, when to use each, when to re-run, migration notes from pre-2026-05-28 conventions."
+        }
+      ],
+      "missing_fields": [],
+      "warnings": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "aac-process-design",
+      "to": "agent-spec-writer"
+    },
+    {
+      "from": "aac-process-design",
+      "to": "agenttwin"
+    },
+    {
+      "from": "agent-spec-writer",
+      "to": "agenttwin"
+    },
+    {
+      "from": "agent-spec-writer",
+      "to": "context-layer-generator"
+    },
+    {
+      "from": "agent-spec-writer",
+      "to": "run-project"
+    },
+    {
+      "from": "agent-spec-writer",
+      "to": "to-issues"
+    },
+    {
+      "from": "agent-spec-writer",
+      "to": "writing-plans"
+    },
+    {
+      "from": "agenttwin",
+      "to": "run-project"
+    },
+    {
+      "from": "codebase-organizer",
+      "to": "context-layer-generator"
+    },
+    {
+      "from": "codebase-organizer",
+      "to": "improve-codebase-architecture"
+    },
+    {
+      "from": "codebase-organizer",
+      "to": "run-project-bundle-viewer"
+    },
+    {
+      "from": "codebase-organizer",
+      "to": "seeit"
+    },
+    {
+      "from": "codebase-organizer",
+      "to": "skillify"
+    },
+    {
+      "from": "context-layer-generator",
+      "to": "run-project"
+    },
+    {
+      "from": "context-layer-generator",
+      "to": "seeit"
+    },
+    {
+      "from": "context-layer-generator",
+      "to": "skillify"
+    },
+    {
+      "from": "context-layer-generator",
+      "to": "to-issues"
+    },
+    {
+      "from": "grill-me",
+      "to": "aac-process-design"
+    },
+    {
+      "from": "grill-me",
+      "to": "agent-spec-writer"
+    },
+    {
+      "from": "grill-me",
+      "to": "codebase-organizer"
+    },
+    {
+      "from": "grill-me",
+      "to": "run-project"
+    },
+    {
+      "from": "grill-me",
+      "to": "to-prd"
+    },
+    {
+      "from": "improve-codebase-architecture",
+      "to": "context-layer-generator"
+    },
+    {
+      "from": "improve-codebase-architecture",
+      "to": "writing-plans"
+    },
+    {
+      "from": "make-it-make-sense",
+      "to": "grill-me"
+    },
+    {
+      "from": "make-it-make-sense",
+      "to": "scout"
+    },
+    {
+      "from": "make-it-make-sense",
+      "to": "to-prd"
+    },
+    {
+      "from": "run-project",
+      "to": "agenttwin"
+    },
+    {
+      "from": "run-project",
+      "to": "handoff"
+    },
+    {
+      "from": "run-project-bundle-viewer",
+      "to": "seeit"
+    },
+    {
+      "from": "scout",
+      "to": "grill-me"
+    },
+    {
+      "from": "scout",
+      "to": "make-it-make-sense"
+    },
+    {
+      "from": "seeit",
+      "to": "run-project"
+    },
+    {
+      "from": "seeit",
+      "to": "run-project-bundle-viewer"
+    },
+    {
+      "from": "seeit",
+      "to": "to-issues"
+    },
+    {
+      "from": "skillify",
+      "to": "handoff"
+    },
+    {
+      "from": "skillify",
+      "to": "run-project"
+    },
+    {
+      "from": "to-issues",
+      "to": "run-project"
+    },
+    {
+      "from": "to-issues",
+      "to": "writing-plans"
+    },
+    {
+      "from": "to-prd",
+      "to": "agent-spec-writer"
+    },
+    {
+      "from": "to-prd",
+      "to": "run-project"
+    },
+    {
+      "from": "to-prd",
+      "to": "to-issues"
+    },
+    {
+      "from": "writing-plans",
+      "to": "handoff"
+    },
+    {
+      "from": "writing-plans",
+      "to": "run-project"
+    }
+  ],
+  "required_fields": [
+    "name",
+    "display_name",
+    "viewer_summary",
+    "bundle",
+    "phase",
+    "category",
+    "artifact_type",
+    "primary_command",
+    "triggers",
+    "inputs",
+    "outputs",
+    "dependencies",
+    "risk_level",
+    "side_effects",
+    "requires_repo",
+    "requires_network"
+  ]
+}

@@ -1,9 +1,39 @@
 ---
 name: agent-spec-writer
-description: >
-  Write specifications precise enough for autonomous AI coding agents to implement without human intervention.
-  Use when: user wants to spec a feature, system, or tool for agent implementation.
-  Do NOT use for: writing code directly (let agents implement), creating skills (use skill-creator).
+display_name: Agent Spec Writer
+viewer_summary: Write behavioral specs precise enough for autonomous coding agents.
+description: 'Write specifications precise enough for autonomous AI coding agents to implement without human intervention. Use when: user wants to spec a feature, system, or tool for agent implementation. Do NOT use for: writing code directly (let agents implement), creating skills (use skill-creator).'
+bundle: run-project
+phase: spec
+category: spec
+artifact_type: markdown-spec
+primary_command: /agent-spec-writer
+triggers:
+  - write a spec
+  - agent spec
+  - spec this out
+  - behavioral contract
+inputs:
+  - Rough feature or system description
+  - Existing system context
+  - Integration boundaries
+outputs:
+  - Behavioral contract
+  - Non-behaviors
+  - Behavioral scenarios
+  - Ambiguity warnings
+dependencies:
+  before:
+    - grill-me
+    - to-prd
+  after:
+    - context-layer-generator
+    - to-issues
+    - writing-plans
+risk_level: medium
+side_effects: none
+requires_repo: false
+requires_network: false
 ---
 
 # Agent Spec Writer

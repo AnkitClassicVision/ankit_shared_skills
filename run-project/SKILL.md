@@ -1,10 +1,53 @@
 ---
 name: run-project
+display_name: Run Project
+viewer_summary: Conductor for the full project pipeline from grill to acceptance.
 description: Universal project conductor. One command, full pipeline. Auto-detects everything.
+bundle: run-project
+phase: execute
+category: conductor
+artifact_type: project-run
+primary_command: /run-project
+triggers:
+  - run project
+  - /run-project
+  - plan this build end to end
+  - full project pipeline
+inputs:
+  - Project or repo path
+  - User intent
+  - Existing run-project state
+  - Companion skills
+outputs:
+  - PRD
+  - Agent spec
+  - Context layer
+  - SEEIT artifact
+  - Issues
+  - Plan
+  - Acceptance report
+dependencies:
+  before:
+    - grill-me
+    - to-prd
+    - agent-spec-writer
+    - context-layer-generator
+    - seeit
+    - to-issues
+    - writing-plans
+  after:
+    - handoff
+    - agenttwin
+risk_level: high
+side_effects: can-write-files
+requires_repo: false
+requires_network: false
 version: 2.1.0
 author: Public Maintainer
-category: software-development
-surfaces: [hermes, claude-code, codex]
+surfaces:
+  - hermes
+  - claude-code
+  - codex
 ---
 
 # /run-project

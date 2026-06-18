@@ -1,6 +1,39 @@
 ---
 name: grill-me
+display_name: Grill Me
+viewer_summary: Stress-test a plan or codebase with dependency-first interrogation before building.
 description: Relentlessly interview the user to stress-test a plan, design, docs, or existing codebase before building. Use when the user says "grill me", "grill docs", "grill with docs", wants codebase/domain alignment, wants a CONTEXT.md or ADR-backed interrogation, or needs shared language before implementation.
+bundle: run-project
+phase: sense
+category: interrogate
+artifact_type: decision-tree
+primary_command: /grill-me
+triggers:
+  - grill me
+  - grill this plan
+  - stress test this
+  - interrogate the docs
+inputs:
+  - Plan, design, docs, or existing codebase
+  - Known constraints
+  - Evidence sources
+outputs:
+  - Decision tree
+  - Dependency questions
+  - Risks and unresolved gates
+  - Shared language
+dependencies:
+  before:
+    - make-it-make-sense
+    - scout
+  after:
+    - to-prd
+    - agent-spec-writer
+    - run-project
+risk_level: low
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 ---
 
 # Grill Me

@@ -1,6 +1,38 @@
 ---
 name: to-prd
+display_name: To PRD
+viewer_summary: Turn understood context into a PRD artifact ready for issue-tracker handoff.
 description: Turn the current conversation context into a PRD and produce a PRD artifact that can be pasted into the project issue tracker. Use when user wants to create a PRD from the current context.
+bundle: run-project
+phase: spec
+category: spec
+artifact_type: prd
+primary_command: /to-prd
+triggers:
+  - create a PRD
+  - turn this into a PRD
+  - product requirements
+  - write the PRD
+inputs:
+  - Current conversation context
+  - User stories or problem framing
+  - Known decisions and constraints
+outputs:
+  - PRD artifact
+  - Problem and solution framing
+  - User stories
+  - Acceptance criteria
+dependencies:
+  before:
+    - grill-me
+    - make-it-make-sense
+  after:
+    - agent-spec-writer
+    - to-issues
+risk_level: medium
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 ---
 
 This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.

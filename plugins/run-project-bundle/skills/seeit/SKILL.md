@@ -1,7 +1,38 @@
 ---
 name: seeit
-description: >-
-  Comprehension instrument for AI-mediated work. Triggers when the user says "seeit", "show me the shape", "make this visible", or asks to see/understand/visualize a project, codebase, agent workflow, spec, or AI build at a structural level. Use this skill whenever the user wants to understand the SHAPE of something the AI is building or has built — code, agent workflows, agent runs, multi-step AI processes, spec compliance, or anything beyond plain chat. Use even when the user asks indirectly: "what did Codex just build", "is this spec doing what it says", "can you map out this agent", "I can't see what this does". The skill gathers from all available sources, maps the project structure, picks the right visual treatment for its actual shape, verifies adversarially, and produces an interactive HTML file the user opens to comprehend the build in 60 seconds.
+display_name: SEEIT
+viewer_summary: Create a lightweight visual map or review artifact for a project, codebase, or agent workflow.
+description: 'Comprehension instrument for AI-mediated work. Triggers when the user says "seeit", "show me the shape", "make this visible", or asks to see/understand/visualize a project, codebase, agent workflow, spec, or AI build at a structural level. Use this skill whenever the user wants to understand the SHAPE of something the AI is building or has built — code, agent workflows, agent runs, multi-step AI processes, spec compliance, or anything beyond plain chat. Use even when the user asks indirectly: "what did Codex just build", "is this spec doing what it says", "can you map out this agent", "I can''t see what this does". The skill gathers from all available sources, maps the project structure, picks the right visual treatment for its actual shape, verifies adversarially, and produces an interactive HTML file the user opens to comprehend the build in 60 seconds.'
+bundle: run-project
+phase: shape
+category: visualize
+artifact_type: html-artifact
+primary_command: /seeit
+triggers:
+  - seeit
+  - show me the shape
+  - make this visible
+  - visualize this workflow
+inputs:
+  - Project, codebase, spec, or agent workflow context
+  - Desired visual mode
+  - Proof or boundary details
+outputs:
+  - Interactive HTML artifact
+  - Structural map
+  - Operator interpretation layer
+  - Visual QA notes
+dependencies:
+  before:
+    - context-layer-generator
+    - codebase-organizer
+  after:
+    - to-issues
+    - run-project-bundle-viewer
+risk_level: medium
+side_effects: can-write-files
+requires_repo: false
+requires_network: false
 ---
 
 # seeit

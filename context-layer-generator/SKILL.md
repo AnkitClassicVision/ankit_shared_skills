@@ -1,14 +1,39 @@
 ---
 name: context-layer-generator
-description: >
-  Build three context layers (structural, semantic, philosophical) for a module or service,
-  producing production-ready artifacts: a module manifest, behavioral contracts, and a decision log.
-  Use when: (1) a dark code audit identifies high-risk modules, (2) proactively documenting any critical
-  service, (3) a module's original authors have left the team, (4) onboarding engineers to unfamiliar
-  code, or (5) preparing a module for safe AI-assisted refactoring. Run once per module — output
-  becomes a template for the rest of the codebase.
-  Do NOT use for: general code review (use code-reviewer), writing implementation specs (use
-  agent_spec_writer), or refactoring code (just refactor directly).
+display_name: Context Layer Generator
+viewer_summary: Build structural, semantic, and philosophical context layers for safe agent work.
+description: 'Build three context layers (structural, semantic, philosophical) for a module or service, producing production-ready artifacts: a module manifest, behavioral contracts, and a decision log. Use when: (1) a dark code audit identifies high-risk modules, (2) proactively documenting any critical service, (3) a module''s original authors have left the team, (4) onboarding engineers to unfamiliar code, or (5) preparing a module for safe AI-assisted refactoring. Run once per module — output becomes a template for the rest of the codebase. Do NOT use for: general code review (use code-reviewer), writing implementation specs (use agent_spec_writer), or refactoring code (just refactor directly).'
+bundle: run-project
+phase: shape
+category: repo
+artifact_type: context-layer
+primary_command: /context-layer-generator
+triggers:
+  - context layer
+  - structural semantic philosophical
+  - document this module
+  - module manifest
+inputs:
+  - Module or service path
+  - Existing code and docs
+  - Behavioral contracts or ADRs
+outputs:
+  - Structural layer
+  - Semantic layer
+  - Philosophical layer
+  - Module manifest and decision log
+dependencies:
+  before:
+    - codebase-organizer
+    - agent-spec-writer
+  after:
+    - seeit
+    - to-issues
+    - skillify
+risk_level: medium
+side_effects: can-write-files
+requires_repo: true
+requires_network: false
 ---
 
 # Context Layer Generator
