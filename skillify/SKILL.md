@@ -1,16 +1,51 @@
 ---
 name: skillify
-description: >
-  Turn any repository into a structured, skill-like decomposition that stays
-  alive for context at all times. Invoke during spec diagramming, brownfield
-  exploration, or at any point in a repo's lifecycle. Auto-creates a skill-pack
-  directory with PROJECT.md (repo-as-skill manifest), context layers, and
-  ADRs. Consumed by /run-project phases automatically. Works on any language.
+display_name: Skillify
+viewer_summary: Turn a repository into a persistent agent-readable skill pack and project manifest.
+description: Turn any repository into a structured, skill-like decomposition that stays alive for context at all times. Invoke during spec diagramming, brownfield exploration, or at any point in a repo's lifecycle. Auto-creates a skill-pack directory with PROJECT.md (repo-as-skill manifest), context layers, and ADRs. Consumed by /run-project phases automatically. Works on any language.
+bundle: run-project
+phase: transfer
+category: transfer
+artifact_type: skill-pack
+primary_command: /skillify
+triggers:
+  - skillify this repo
+  - repo as skill
+  - create skill pack
+  - project manifest
+inputs:
+  - Repository path
+  - Organizer output
+  - Public interfaces and ADRs
+outputs:
+  - .skill-pack/PROJECT.md
+  - Context JSON layers
+  - Interfaces
+  - Inferred ADRs
+dependencies:
+  before:
+    - codebase-organizer
+    - context-layer-generator
+  after:
+    - handoff
+    - run-project
+risk_level: medium
+side_effects: can-write-files
+requires_repo: true
+requires_network: false
 version: 2.0.0
 author: Public Maintainer
-category: software-development
-surfaces: [agent-cli, coding-agent]
-tags: [skillify, organize, context, brownfield, repo-manifest, agent-context, universal]
+surfaces:
+  - agent-cli
+  - coding-agent
+tags:
+  - skillify
+  - organize
+  - context
+  - brownfield
+  - repo-manifest
+  - agent-context
+  - universal
 ---
 
 # /skillify — Universal Codebase Skillification

@@ -17,6 +17,7 @@ A small public collection of portable AI skills.
 - `codebase-organizer/` — analyze a repository, map modules, detect coupling/orphans, and feed brownfield context into `run-project`.
 - `context-layer-generator/` — build structural, semantic, and philosophical context layers for a repo or project.
 - `run-project/` — orchestrate a full spec-backed project pipeline from grill to PRD, spec, context, issues, plans, execution, and acceptance.
+- `run-project-bundle-viewer/` — render this bundle as a static Brain Viewer-friendly dashboard with phase lanes, filters, and dependency graph.
 - `seeit/` — create lightweight visual maps and review artifacts for project understanding.
 - `skillify/` — turn a repository into a reusable agent-readable skill pack and project manifest.
 - `writing-plans/` — convert specs and issues into small, execution-ready implementation tasks.
@@ -30,6 +31,21 @@ Copy a skill folder into your AI tool's skills directory, then ask the tool to u
 ### Install the full run-project bundle
 
 For `/run-project`, copy every folder in this repository into the target skills directory, not just `run-project/`. The conductor expects its companion skills to be installed alongside it. The bundle includes the planning, PRD, issue, context, SEEIT, handoff, codebase organizer, and acceptance-review skills. The only non-bundled dependency is the user's execution runtime: a coding agent, shell/test runner, or human operator.
+
+### Generate the Brain Viewer dashboard
+
+The repository now includes a deterministic dashboard builder that reads every bundle skill's `SKILL.md` frontmatter and writes static docs artifacts:
+
+```bash
+python3 scripts/build-run-project-bundle-dashboard.py --strict
+```
+
+Outputs:
+
+- `docs/run-project-bundle-dashboard.html`
+- `docs/run-project-bundle-data.json`
+
+Open the HTML file locally or publish `docs/` through any static documentation host.
 
 ### Install as a Codex plugin
 

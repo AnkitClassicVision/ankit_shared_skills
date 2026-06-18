@@ -1,17 +1,55 @@
 ---
 name: codebase-organizer
-description: >
-  Universal codebase operations: analyze, organize, and architecturally deepen any repo.
-  Two commands: /organize for read-only analysis and /deepen for multi-agent refactoring.
-  Use when the user wants a codebase scan, deep module scoring, dependency mapping,
-  architectural improvement, or code-to-skill conversion.
-  Triggers: "organize this repo", "/organize", "deepen this codebase", "/deepen",
-  "improve architecture", "brownfield rescue", "codebase audit", "create a skill from my code".
+display_name: Codebase Organizer
+viewer_summary: Analyze a repo into modules, hotspots, dependency maps, and run-project context artifacts.
+description: 'Universal codebase operations: analyze, organize, and architecturally deepen any repo. Two commands: /organize for read-only analysis and /deepen for multi-agent refactoring. Use when the user wants a codebase scan, deep module scoring, dependency mapping, architectural improvement, or code-to-skill conversion. Triggers: "organize this repo", "/organize", "deepen this codebase", "/deepen", "improve architecture", "brownfield rescue", "codebase audit", "create a skill from my code".'
+bundle: run-project
+phase: shape
+category: repo
+artifact_type: repo-map
+primary_command: /organize
+triggers:
+  - organize this repo
+  - /organize
+  - codebase audit
+  - module map
+  - brownfield context
+inputs:
+  - Repository path
+  - Optional output directory
+  - Optional domain/context docs
+outputs:
+  - Module inventory
+  - Dependency graph
+  - Hotspots and orphan files
+  - .run-project organizer report
+dependencies:
+  before:
+    - grill-me
+  after:
+    - context-layer-generator
+    - seeit
+    - skillify
+risk_level: medium
+side_effects: can-write-files
+requires_repo: true
+requires_network: false
 version: 3.0.0
 author: Public Maintainer
-category: software-development
-surfaces: [hermes, claude-code, codex]
-tags: [organize, analyze, brownfield, deepen, deep-modules, context-layer, spec-diagram, refactoring, architecture]
+surfaces:
+  - hermes
+  - claude-code
+  - codex
+tags:
+  - organize
+  - analyze
+  - brownfield
+  - deepen
+  - deep-modules
+  - context-layer
+  - spec-diagram
+  - refactoring
+  - architecture
 ---
 
 # codebase-organizer

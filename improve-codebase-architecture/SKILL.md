@@ -1,6 +1,38 @@
 ---
 name: improve-codebase-architecture
+display_name: Improve Codebase Architecture
+viewer_summary: Surface deep-module refactoring opportunities and architecture improvement reports.
 description: Find deepening opportunities in a codebase, informed by the domain language in CONTEXT.md and the decisions in docs/adr/. Use when the user wants to improve architecture, find refactoring opportunities, consolidate tightly-coupled modules, or make a codebase more testable and AI-navigable.
+bundle: run-project
+phase: shape
+category: repo
+artifact_type: architecture-report
+primary_command: /improve-codebase-architecture
+triggers:
+  - improve architecture
+  - find refactoring opportunities
+  - deep modules
+  - make this more testable
+inputs:
+  - Repository path
+  - CONTEXT.md or domain language
+  - ADR history
+  - Existing tests
+outputs:
+  - Deepening opportunities
+  - Coupling and boundary report
+  - Refactor candidates
+  - Architecture recommendations
+dependencies:
+  before:
+    - codebase-organizer
+  after:
+    - context-layer-generator
+    - writing-plans
+risk_level: medium
+side_effects: draft-only
+requires_repo: true
+requires_network: false
 ---
 
 # Improve Codebase Architecture

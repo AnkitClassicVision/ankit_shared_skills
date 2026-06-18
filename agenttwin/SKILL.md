@@ -1,6 +1,38 @@
 ---
 name: agenttwin
-description: "Diagnose, score, map, visualize, or accept an AI agent or workflow using a public closed-loop readiness report. Use for agent specs, automation workflows, vendor proposals, and agentic builds."
+display_name: AgentTwin
+viewer_summary: Score, map, visualize, or accept an AI agent/workflow with public-safe readiness review.
+description: Diagnose, score, map, visualize, or accept an AI agent or workflow using a public closed-loop readiness report. Use for agent specs, automation workflows, vendor proposals, and agentic builds.
+bundle: run-project
+phase: spec
+category: agent-safety
+artifact_type: readiness-report
+primary_command: /agenttwin
+triggers:
+  - agent readiness
+  - acceptance review
+  - score this agent
+  - agent twin
+inputs:
+  - Agent spec or workflow
+  - Evidence and eval results
+  - Risk boundaries
+  - Public-safe context
+outputs:
+  - Readiness score
+  - Closed-loop review
+  - Public-safe evaluation packet
+  - Acceptance decision
+dependencies:
+  before:
+    - aac-process-design
+    - agent-spec-writer
+  after:
+    - run-project
+risk_level: medium
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 version: 1.0.0-public
 license: MIT
 ---

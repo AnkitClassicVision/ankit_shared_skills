@@ -1,13 +1,51 @@
 ---
 name: writing-plans
-description: "Use when writing implementation plans with bite-sized tasks, file paths, ordered steps, verification checkpoints, and handoff-ready execution detail."
+display_name: Writing Plans
+viewer_summary: Convert specs and issues into small ordered implementation tasks with verification checkpoints.
+description: Use when writing implementation plans with bite-sized tasks, file paths, ordered steps, verification checkpoints, and handoff-ready execution detail.
+bundle: run-project
+phase: execute
+category: plan
+artifact_type: implementation-plan
+primary_command: /writing-plans
+triggers:
+  - write implementation plan
+  - bite-sized tasks
+  - execution plan
+  - plan this build
+inputs:
+  - Spec, PRD, or issue set
+  - File paths and repo constraints
+  - Verification requirements
+outputs:
+  - Ordered implementation plan
+  - Small tasks
+  - Verification checkpoints
+  - Handoff-ready execution detail
+dependencies:
+  before:
+    - to-issues
+    - agent-spec-writer
+  after:
+    - run-project
+risk_level: medium
+side_effects: draft-only
+requires_repo: false
+requires_network: false
 version: 1.1.0
 author: Public Maintainer
 license: MIT
 metadata:
   hermes:
-    tags: [planning, design, implementation, workflow, documentation]
-    related_skills: [tdd, code-review]
+    tags:
+      - planning
+      - design
+      - implementation
+      - workflow
+      - documentation
+    related_skills:
+      - tdd
+      - code-review
 ---
 
 # Writing Implementation Plans

@@ -27,6 +27,7 @@ SKILL_NAMES = [
     "codebase-organizer",
     "context-layer-generator",
     "run-project",
+    "run-project-bundle-viewer",
     "seeit",
     "skillify",
     "writing-plans",
@@ -56,14 +57,15 @@ PLUGIN_JSON = {
         "shortDescription": "Install the public run-project skill stack as one plugin.",
         "longDescription": (
             "A public-safe Codex plugin bundle containing run-project and its companion skills for "
-            "project grilling, PRDs, specs, context layers, issues, writing plans, handoffs, "
+            "project grilling, PRDs, specs, context layers, dashboard viewing, issues, writing plans, handoffs, "
             "architecture review, and acceptance checks."
         ),
         "developerName": "Ankit Classic Vision",
         "category": "Productivity",
-        "capabilities": ["Project planning", "Implementation planning", "Review and handoff"],
+        "capabilities": ["Project planning", "Implementation planning", "Bundle visualization", "Review and handoff"],
         "defaultPrompt": [
             "Use run-project to plan this build from prompt to acceptance.",
+            "Generate the run-project bundle dashboard from these skills.",
             "Grill this project idea, then produce a PRD and issues.",
             "Create a handoff packet for this project.",
         ],

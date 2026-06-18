@@ -1,10 +1,35 @@
 ---
 name: scout
-description: >
-  Use when a user asks whether a new external thing, idea, article, tool, repo,
-  framework, competitor move, workflow, or opportunity is worth caring about now.
-  Runs a memory-first triage, maps where the thing applies, and returns exactly
-  one verdict: GO-now, PARK, or KILL.
+display_name: Scout
+viewer_summary: Triage an external thing, repo, idea, or opportunity into GO-now, PARK, or KILL.
+description: 'Use when a user asks whether a new external thing, idea, article, tool, repo, framework, competitor move, workflow, or opportunity is worth caring about now. Runs a memory-first triage, maps where the thing applies, and returns exactly one verdict: GO-now, PARK, or KILL.'
+bundle: run-project
+phase: sense
+category: triage
+artifact_type: triage-verdict
+primary_command: /scout
+triggers:
+  - is this worth caring about
+  - scout this
+  - triage this tool
+  - new repo or framework
+inputs:
+  - Idea, link, tool, repo, framework, or opportunity
+  - Existing memory/context
+  - Decision criteria
+outputs:
+  - GO-now/PARK/KILL verdict
+  - Applicability map
+  - Reasoning and next action
+dependencies:
+  before: []
+  after:
+    - make-it-make-sense
+    - grill-me
+risk_level: low
+side_effects: none
+requires_repo: false
+requires_network: true
 ---
 
 # SCOUT

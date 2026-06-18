@@ -19,6 +19,7 @@ The plugin copies the public skill bundle under `skills/` so the plugin is self-
 - `codebase-organizer`
 - `context-layer-generator`
 - `run-project`
+- `run-project-bundle-viewer`
 - `seeit`
 - `skillify`
 - `writing-plans`
