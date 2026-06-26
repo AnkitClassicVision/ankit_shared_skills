@@ -1,19 +1,20 @@
 ---
 name: make-it-make-sense
-description: Use when a user asks to make sense of a confusing idea, decision, plan, document, transcript, system, unfamiliar domain, or stuck situation. Produces a visible router, chooses the right artifact shape, marks trust level on important claims, surfaces only useful insights, and follows the user's capture policy without saving sensitive material by default.
+description: Use when a user asks to make sense of a confusing idea, decision, plan, document, transcript, system, unfamiliar domain, or stuck situation. Defaults to ELI5-first explanation before the deeper map, produces a visible router, chooses the right artifact shape, marks trust level on important claims, surfaces only useful insights, and follows the user's capture policy without saving sensitive material by default.
 ---
 
 # Make It Make Sense
 
 Make It Make Sense is a reusable sense-making protocol for AI assistants. Use it when a person brings messy context and needs the AI to turn it into something clear, testable, and useful.
 
-The skill makes the AI do five things:
+The skill makes the AI do six things:
 
-1. Show its routing decision before analysis.
-2. Validate the user's existing thinking when they brought a plan, options, or assumptions.
-3. Pick the right artifact shape instead of producing generic prose.
-4. Mark trust level on important claims.
-5. Handle durable capture safely, according to the user's policy.
+1. Start with an ELI5 read so the user can understand the shape before the details.
+2. Show its routing decision before deeper analysis.
+3. Validate the user's existing thinking when they brought a plan, options, or assumptions.
+4. Pick the right artifact shape instead of producing generic prose.
+5. Mark trust level on important claims.
+6. Handle durable capture safely, according to the user's policy.
 
 This skill is standalone. It does not require private memory, a custom database, or a specific agent runtime.
 
@@ -120,11 +121,14 @@ Common policies:
 
 Never save secrets, raw credentials, sensitive identifiers, medical/legal/financial records, private personal data, or client data by default.
 
-## Required visible router
+## Required opening
 
-Every activated response must begin with this block before analysis:
+Every activated response must begin with this paired opening before deeper analysis:
 
 ```text
+ELI5:
+[one to three very plain sentences. Use a familiar analogy if useful. No jargon.]
+
 Routing:
  • Mode: [Decision | Comprehension | Unblock | Gate-building | Brainstorm | Clarification]
  • Thinking brought: [yes — N items | no]
@@ -136,6 +140,9 @@ Routing:
 Examples:
 
 ```text
+ELI5:
+This is like choosing which bridge to cross. First we name the bridges, then we mark which ones are safe, risky, or unknown.
+
 Routing:
  • Mode: Decision
  • Thinking brought: yes — 3 options
@@ -169,10 +176,11 @@ Use for decisions, comparisons, gaps, mappings, dependencies, stakeholder alignm
 
 Suggested sections:
 
-1. What is being compared or mapped.
-2. Matrix or grouped bullets with trust markers.
-3. Biggest gap or contradiction.
-4. Recommendation or next move.
+1. ELI5: what the comparison means in plain language.
+2. What is being compared or mapped.
+3. Matrix or grouped bullets with trust markers.
+4. Biggest gap or contradiction.
+5. Recommendation or next move.
 
 ### River shape
 
@@ -180,10 +188,11 @@ Use for learning a domain, explaining a complex system, or turning scattered not
 
 Suggested sections:
 
-1. One-line plain-English model.
-2. Mermaid `graph LR` if the surface supports it.
-3. Concept list: quick definition, why it matters, relates to, example, and ELI5.
-4. Where misunderstanding usually happens.
+1. ELI5: the system in one simple analogy or tiny story.
+2. One-line plain-English model.
+3. Mermaid `graph LR` if the surface supports it.
+4. Concept list: quick definition, why it matters, relates to, example, and ELI5.
+5. Where misunderstanding usually happens.
 
 If Mermaid is unsupported, use a nested bullet flow.
 
@@ -193,10 +202,11 @@ Use when the user is stuck and action matters more than explanation.
 
 Suggested sections:
 
-1. What is stuck.
-2. The one next action.
-3. Why this action is safe or useful.
-4. What would change the recommendation.
+1. ELI5: what is stuck in simple terms.
+2. What is stuck.
+3. The one next action.
+4. Why this action is safe or useful.
+5. What would change the recommendation.
 
 ### Gate shape
 
@@ -204,12 +214,13 @@ Use for turning human judgment into a repeatable rubric, readiness check, escala
 
 Suggested sections:
 
-1. Locate the decision point.
-2. Mine examples and existing rules.
-3. Decompose judgment into signals.
-4. Ground each signal in evidence.
-5. Codify the decision rule.
-6. Validate with test cases and escalation rules.
+1. ELI5: what the gate protects and what gets stopped.
+2. Locate the decision point.
+3. Mine examples and existing rules.
+4. Decompose judgment into signals.
+5. Ground each signal in evidence.
+6. Codify the decision rule.
+7. Validate with test cases and escalation rules.
 
 ## Pillar 3: TRUST
 
@@ -287,6 +298,9 @@ No-capture policy:
 ### Decision template
 
 ```text
+ELI5:
+[one to three simple sentences]
+
 Routing:
  • Mode: Decision
  • Thinking brought: [yes/no]
@@ -320,6 +334,9 @@ Capture:
 ### Comprehension template
 
 ```text
+ELI5:
+[one to three simple sentences]
+
 Routing:
  • Mode: Comprehension
  • Thinking brought: no
@@ -354,6 +371,9 @@ Capture:
 ### Unblock template
 
 ```text
+ELI5:
+[one to three simple sentences]
+
 Routing:
  • Mode: Unblock
  • Thinking brought: yes/no
@@ -383,6 +403,9 @@ Insight:
 ### Gate template
 
 ```text
+ELI5:
+[one to three simple sentences]
+
 Routing:
  • Mode: Gate-building
  • Thinking brought: yes/no
@@ -457,7 +480,7 @@ Goal:
 Make the skill clearer and more usable without breaking its core behavior.
 
 Preserve these core behaviors:
-1. Every activated response starts with a Visible Router.
+1. Every activated response starts with ELI5 first, then a Visible Router.
 2. PLAN only fires when the user brought thinking.
 3. SHAPE chooses the right artifact form before writing.
 4. TRUST markers appear on important claims.
