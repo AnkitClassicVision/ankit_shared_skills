@@ -146,7 +146,7 @@ band signals above.
 > 6. **Verdict:** band → model (per registry) + specialist lanes + verify pass +
 >    human gate? Cascade from the band; don't pre-pay the top tier.
 > Return: **model breakdown first** (Gate-0 pool, band 0/1–2/3/4/>4 ladder
-> from `references/model-registry.md`, specialist lanes, recommended route +
+> from `model-registry.md`, specialist lanes, recommended route +
 > fallback) · transformation summary · Gate 0 result · gates fired · impossibility
 > type · band reads · **grounding score `L=<n>, P=<n>`** · stakes effect · caliber
 > band · verdict (constructor + lanes) · decompose? · what would reduce it · the

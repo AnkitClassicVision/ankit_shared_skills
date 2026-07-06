@@ -72,7 +72,7 @@ level from -1 to 6 for every material surface.
 | Surface | Covers | Evidence examples |
 |---|---|---|
 | `local_private` | local/offline/private endpoint use | hardware tests, quantization evals, privacy review |
-| `baa_phi_compliance` | regulated/private data path | vendor compliance docs, regional deployment proof |
+| `regulated_data_compliance` | regulated/private data path | vendor compliance docs, regional deployment proof |
 | `latency_cost` | speed, throughput, and price fit | provider pricing, timing logs, cost reports |
 | `reliability_observability` | uptime, repeatability, logs, replay | run logs, retry rates, incident records |
 | `safety_refusal` | appropriate refusal and non-refusal behavior | safety evals, red-team tests, false-refusal logs |
