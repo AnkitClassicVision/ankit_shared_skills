@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CALIBER model capability matrix v0.3",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "models"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "caliber-model-capabilities-v0.3"
+    },
+    "last_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "model_id",
+          "provider",
+          "family",
+          "modalities",
+          "deployment_paths",
+          "capability"
+        ],
+        "properties": {
+          "model_id": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "family": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "modalities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "deployment_paths": {
+            "type": "object"
+          },
+          "capability": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "level",
+                "confidence"
+              ],
+              "properties": {
+                "level": {
+                  "type": "integer",
+                  "minimum": -1,
+                  "maximum": 6
+                },
+                "confidence": {
+                  "enum": [
+                    "low",
+                    "medium",
+                    "high"
+                  ]
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "defenders_required": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "known_failure_modes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "social_field_notes": {
+            "type": "array"
+          },
+          "last_verified_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

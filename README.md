@@ -4,6 +4,7 @@ A small public collection of portable AI skills.
 
 ## Skills
 
+- `caliber/` — route prompts by task-demand surface before spending tokens, choosing the model, tool lane, verifier, and human gate a task actually needs.
 - `make-it-make-sense/` — a self-contained sense-making protocol for turning messy ideas, plans, documents, or decisions into clear artifacts with visible routing, trust markers, and safe capture behavior.
 - `scout/` — a generic triage protocol for deciding whether a new idea, link, tool, repo, framework, or opportunity deserves GO-now, PARK, or KILL.
 - `aac-process-design/` — guide AI workflow/process design with gates, owners, risks, and evaluation checkpoints.

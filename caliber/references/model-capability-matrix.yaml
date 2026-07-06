@@ -1,0 +1,113 @@
+schema_version: caliber-model-capabilities-v0.3
+last_verified_at: null
+status: draft_requires_source_refresh
+notes:
+  - "Levels are starter priors, not locked benchmark claims. Refresh with current sources before using for high-stakes routing."
+  - "Deployment path can lower or exclude a model regardless of raw capability."
+models:
+  - model_id: deterministic/tools
+    provider: local
+    family: deterministic
+    license: n/a
+    modalities: [text, data]
+    deployment_paths:
+      local_script: {allowed_data: [non_phi, sensitive_if_local_policy_allows], private: true}
+    capability:
+      text_transform: {level: -1, confidence: high, evidence: [deterministic_exact]}
+      structured_output: {level: -1, confidence: high, evidence: [schema_validator]}
+      data_analysis: {level: -1, confidence: high, evidence: [executable_code]}
+    defenders_required: [unit_test_or_validator]
+
+  - model_id: local/tiny-small-class
+    provider: local_or_open_weight
+    family: small_local
+    license: varies
+    modalities: [text]
+    deployment_paths:
+      local: {allowed_data: [non_phi, sensitive_if_policy_allows], private: true}
+    capability:
+      text_transform: {level: 1, confidence: medium, evidence: [internal_fixture_required]}
+      instruction_following: {level: 1, confidence: low, evidence: [internal_fixture_required]}
+      general_reasoning: {level: 1, confidence: low, evidence: [benchmark_refresh_required]}
+      local_private: {level: 4, confidence: high, evidence: [local_runtime]}
+    defenders_required: [schema_validator, sample_review]
+
+  - model_id: api/workhorse-frontier-class
+    provider: mixed
+    family: workhorse_api
+    license: proprietary
+    modalities: [text, vision]
+    deployment_paths:
+      first_party_api: {allowed_data: [non_phi], private: false}
+      private_or_compliant_if_available: {allowed_data: [regulated_private, non_sensitive], private: true, verify_required: true}
+    capability:
+      text_transform: {level: 3, confidence: medium, evidence: [arena, internal]}
+      instruction_following: {level: 3, confidence: medium, evidence: [ifeval, internal]}
+      general_reasoning: {level: 3, confidence: medium, evidence: [livebench, gpqa]}
+      software_engineering: {level: 3, confidence: medium, evidence: [swebench, internal_repo_tests]}
+      structured_output: {level: 3, confidence: medium, evidence: [schema_eval]}
+      vision_static: {level: 3, confidence: low, evidence: [mmmu, internal]}
+    defenders_required: [surface_specific_defender]
+
+  - model_id: api/frontier-reasoning-class
+    provider: mixed
+    family: frontier_reasoning
+    license: proprietary
+    modalities: [text, vision]
+    deployment_paths:
+      first_party_api: {allowed_data: [non_phi], private: false}
+      private_or_compliant_if_available: {allowed_data: [regulated_private, non_sensitive], private: true, verify_required: true}
+    capability:
+      general_reasoning: {level: 4, confidence: medium, evidence: [gpqa, hle, livebench]}
+      strategy_architecture: {level: 4, confidence: medium, evidence: [internal_gold_cases]}
+      software_engineering: {level: 4, confidence: medium, evidence: [swebench, aider, internal]}
+      long_context_synthesis: {level: 4, confidence: low, evidence: [ruler, mrcr, internal]}
+      science_expert: {level: 4, confidence: low, evidence: [gpqa, expert_review]}
+    defenders_required: [review_or_tests_required]
+
+  - model_id: orchestrated/multi-agent-constructor
+    provider: mixed
+    family: orchestrated
+    license: mixed
+    modalities: [text, vision, audio, video, tools]
+    deployment_paths:
+      depends_on_subroute: {allowed_data: [depends_on_gate_0], private: null}
+    capability:
+      workflow_automation: {level: 5, confidence: medium, evidence: [replay_harness_required]}
+      agentic_coding: {level: 5, confidence: medium, evidence: [terminal_bench_internal]}
+      real_world_safety: {level: 5, confidence: medium, evidence: [safety_case_required]}
+    defenders_required: [decomposition, replay_harness, human_gate, kill_switch]
+
+  - model_id: media/image-generation-specialist
+    provider: mixed
+    family: image_generation
+    license: varies
+    modalities: [image]
+    deployment_paths:
+      provider_api: {allowed_data: [non_phi], private: false}
+    capability:
+      image_generation: {level: 4, confidence: medium, evidence: [human_preference, artifact_qa]}
+    defenders_required: [artifact_review, rights_safety_check]
+
+  - model_id: media/video-generation-specialist
+    provider: mixed
+    family: video_generation
+    license: varies
+    modalities: [video]
+    deployment_paths:
+      provider_api: {allowed_data: [non_phi], private: false}
+    capability:
+      video_generation: {level: 4, confidence: low, evidence: [vbench, artifact_qa]}
+    defenders_required: [artifact_review, rights_safety_check]
+
+  - model_id: audio/voice-specialist
+    provider: mixed
+    family: audio_voice
+    license: varies
+    modalities: [audio]
+    deployment_paths:
+      provider_api: {allowed_data: [non_phi], private: false, verify_consent_required: true}
+    capability:
+      audio_asr: {level: 4, confidence: medium, evidence: [wer, transcript_qa]}
+      audio_tts_voice: {level: 4, confidence: medium, evidence: [mos, call_qa]}
+    defenders_required: [transcript_qa, consent_privacy_check]
