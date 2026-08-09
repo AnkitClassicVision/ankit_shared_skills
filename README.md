@@ -1,3 +1,5 @@
+
+
 # Shared AI Skills
 
 A small public collection of portable AI skills.
@@ -39,7 +41,7 @@ This repo also includes a repo-local Codex marketplace and a self-contained plug
 ```bash
 git clone https://github.com/AnkitClassicVision/ankit_shared_skills.git
 cd ankit_shared_skills
-codex plugin marketplace add .
+codex plugin marketplace add .agents/plugins
 codex plugin add run-project-bundle@ankit-shared-skills
 ```
 
