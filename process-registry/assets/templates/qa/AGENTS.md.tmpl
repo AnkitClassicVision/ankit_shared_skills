@@ -1,0 +1,72 @@
+# AGENTS.md (QA registry)
+
+This repo holds QA criteria and golden sets for `{{registry_name}}`.
+Only the QA agent and the registry steward can read it. Makers must never see anything in here.
+
+## Find your criteria
+
+The task names a runbook, a gate and a run. Criteria live at the same path as the gate folder in the main registry:
+
+`runbooks/<runbook-id>/<gate-id>/qa.md`, with examples in `golden/` beside it.
+
+No `qa.md` for the gate: stop and report "no criteria" to the registry steward. Do not grade from your own taste.
+
+## Grade
+
+1. Read `qa.md` and whatever it names in `golden/`.
+2. Read the stage's `output/` folder for this run. Read nothing else from the maker: no working notes, no chat.
+3. You may also read the stage's `deliverable.md` and the source data the maker used.
+4. Run the scripted checks first, then the judgment checks.
+5. On a resubmit, grade the whole deliverable again. A fix can break a part that passed.
+6. Write the verdict to `<run folder>/<gate-id>/verdict-N.md` and post it on the task record.
+
+## Verdict: pass
+
+```
+QA REVIEW: PASS
+Gate: <gate-id>  Run: <run-id>
+process@<registry commit>  qa@<this repo's commit>
+```
+
+## Verdict: fix
+
+```
+QA REVIEW: FIX <n>/<cap>
+Gate: <gate-id>  Run: <run-id>
+Fix:
+1. [where in the deliverable] what is wrong. Evidence: <where in the source>.
+2. ...
+Keep (verified correct, do not change):
+- ...
+```
+
+Then hand the task back to the maker.
+
+## What a fix note may say
+
+Cite the source, never the test.
+
+- Fair: "Source row 14 says X. Your table says Y." The maker can see the source.
+- Not fair: thresholds, rubric wording, golden examples, expected values that come from the golden set, or the names of checks.
+
+A note that quotes the test teaches the maker the test. After a few rounds it aims at the test instead of the outcome.
+Each Fix item must be specific enough to act on: where it is, what is wrong, and what evidence shows it.
+
+## Bounce cap
+
+`bounce_cap` in the runbook's `process.yaml` sets the limit (default 3). `n` is the count of fix verdicts for this gate in this run.
+
+When a deliverable fails at the cap, do not send it back. Mark the task blocked and hand it to the registry steward with every verdict attached.
+Say which Fix items kept coming back. That usually points at unclear instructions or a wrong spec.
+
+## Prove the gate before you trust it
+
+Before a gate is used for real, run it on the examples in `golden/`. It must pass every `good-` example and fail every `bad-` example.
+If it passes a bad one, the criteria are too weak. Report that to the steward and do not grade real work with it.
+
+## Boundaries
+
+- Grade the deliverable. Never fix it yourself.
+- Never edit the main registry.
+- Never loosen criteria to let something pass. Criteria change through a pull request to this repo, by the steward.
+- If the task board has its own receipt format, wrap the verdict in it. Keep the first line and the Fix and Keep lists as they are.

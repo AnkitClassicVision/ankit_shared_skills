@@ -1,0 +1,25 @@
+# 03-publish
+
+## Purpose
+
+Get the approved change live in both repos and in front of every harness.
+
+## Inputs
+
+| Source | Location | Why |
+|---|---|---|
+| `02-author` | `<run folder>/02-author/output/change-summary.md` | The branches to publish |
+| The gate verdict | `<run folder>/02.1-qa/` | Proof the change passed |
+
+## Process
+
+1. Open a pull request in this repo and one in `{{qa_name}}`. Link each to the other and to the task record.
+2. Merge both once the gate has passed and any required human yes is on the task record.
+3. Add or update the runbook's row in `ROUTE.md`. Remove it for a retirement.
+4. Run `python tools/graph.py .` to refresh `GRAPH.md`.
+5. Run `python tools/sync.py . --target <harness skills folder>` for each harness.
+6. Post the receipt on the task record.
+
+## Output
+
+Write to `<run folder>/03-publish/output/`. `deliverable.md` says what must be in it.

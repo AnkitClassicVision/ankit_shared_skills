@@ -1,0 +1,105 @@
+# AGENTS.md
+
+This repo is the process registry. It holds process definitions only.
+Run output lives in the run folder. QA criteria live in a separate repo, `{{qa_name}}`.
+
+## Local settings
+
+- Run folder root: `{{runs_root}}`
+- QA repo: `{{qa_name}}` (makers have no access, by design)
+- Record of work: {{record}}
+- Default bounce cap: 3
+
+## Map
+
+| Path | What it is |
+|---|---|
+| `ROUTE.md` | Which runbook fits which request |
+| `runbooks/<id>/SKILL.md` | Entry point for one process |
+| `runbooks/<id>/process.yaml` | Owner, version, status, stage order |
+| `runbooks/<id>/NN-name/STAGE.md` | Instructions for one stage |
+| `runbooks/<id>/NN-name/deliverable.md` | What that stage must hand in |
+| `runbooks/<id>/NN.1-qa/GATE.md` | A QA gate. Handoff only, no criteria |
+| `skills/<id>/SKILL.md` | Shared skills that stages can use |
+| `tools/` | lint, scaffold, graph, sync |
+
+## Load only what you need
+
+Read down these layers and stop as soon as you can act.
+
+1. `ROUTE.md`
+2. The runbook's `SKILL.md` and `process.yaml`
+3. `STAGE.md` and `deliverable.md` for the stage you are working
+4. The files that `STAGE.md` lists under Inputs
+
+Less context gives better work. Do not read other stages or other runbooks for background.
+
+## 1. Route
+
+Find the row in `ROUTE.md` whose "Use when" matches the request.
+
+- One match: open that runbook.
+- No match, or more than one: stop. Say what was asked and why nothing fits. Record it as a task for the registry steward. Do not guess and do not invent a process.
+
+## 2. Run
+
+`process.yaml` is the source of truth for order.
+
+1. Start a run folder at `{{runs_root}}/<runbook-id>/<run-id>/`. Write `run.yaml` with the registry commit, the start time and the harness.
+2. A stage is ready when every stage in its `needs` list is complete.
+3. A stage is complete when its output is handed in and, if it has a gate, the gate has passed.
+4. Start every ready stage. Stages that share a number (`02a`, `02b`) are built to run at the same time. Give each its own task and its own output folder.
+5. A stage listed in `human_gate` waits for a named human to say yes on the task record before it starts.
+6. The run is done when the last stage is complete.
+
+One stage is one job with one task record. Never fold two stages into one job.
+
+## 3. If you are the maker of a stage
+
+- Read `STAGE.md` and `deliverable.md`, then the inputs they name. Nothing else.
+- Take inputs only from earlier stages' `output/` folders. Never from their working files.
+- Write your deliverable to `<run folder>/<stage-id>/output/`.
+- You are done when `deliverable.md` is satisfied. Then hand off. If the stage has a gate, mark the task for review and pass it to the QA agent.
+- You will not see how the deliverable is tested. That is deliberate. Aim at the outcome in `deliverable.md`, not at a test.
+- Do not open `{{qa_name}}`. Do not edit any `GATE.md`.
+
+## 4. QA gates
+
+A folder named `NN.1-qa` after a stage means that stage has a gate. No folder means no gate.
+
+- A different agent grades. Never the maker.
+- The grader's rules and criteria are in `{{qa_name}}`, at the same path as the gate folder.
+- The grader reads your `output/` folder only.
+
+## 5. Rework
+
+A failed gate returns a note that starts `QA REVIEW: FIX n/<cap>`.
+
+- Fix every numbered item under **Fix**.
+- Leave everything under **Keep** alone.
+- Hand in again. The grader checks the whole deliverable again, not just your fixes.
+- At the cap, the task goes to the registry steward as blocked. Repeated fails usually mean the instructions or the spec are wrong, so the steward fixes the process itself.
+
+## 6. Receipts
+
+Every finished stage leaves a receipt on the task record with:
+
+- the runbook id and stage id
+- `process@<registry commit>`
+- for gated stages, `qa@<QA repo commit>`, added by the grader
+- where the output is
+
+## 7. Changing a process
+
+- Change through a pull request. Never edit the main branch directly.
+- Bump `version` in `process.yaml` when the steps or the deliverable change.
+- The maker of a stage never writes its test. Criteria change only in `{{qa_name}}`, by the steward.
+- Run `python tools/lint.py . --qa <path to {{qa_name}}>` before opening the pull request. Without QA access, run it without `--qa`.
+- Add `--against <checkout of the main branch>` to list every change that could lower the bar: a removed gate, a changed `human_gate`, a promoted status, a raised bounce cap, or new instructions with no version bump. Put that list in the pull request. A person looks at each one.
+- Never make lint pass by weakening the process. Removing a gate, setting `human_gate` to `[]` or claiming a status to clear a message is a failure, not a fix.
+- To add or adopt a process, use the `registry-steward` runbook.
+
+## Status ladder
+
+`draft` → `verified` (gates pass on one harness) → `portable` (two or more harnesses) → `retired`.
+An existing process enters as `adopted`: captured as it runs today, not yet tested.

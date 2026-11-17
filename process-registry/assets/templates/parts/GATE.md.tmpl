@@ -1,0 +1,10 @@
+# Gate {{gate_id}}
+
+Grades the output of `{{stage_id}}`. This file is a handoff, not a test. No criteria live here.
+
+- **Graded:** the `{{stage_id}}/output/` folder of the run.
+- **Grader:** the QA agent. Never the agent that made the deliverable.
+- **Criteria:** in `{{qa_name}}`, same path: `runbooks/{{id}}/{{gate_id}}/`.
+- **Verdict:** written to the run folder as `{{gate_id}}/verdict-N.md` and posted on the task record.
+- **Pass:** `{{stage_id}}` is complete and the stages that need it may start.
+- **Fix:** the note goes back to the maker. The bounce cap is in `process.yaml`.

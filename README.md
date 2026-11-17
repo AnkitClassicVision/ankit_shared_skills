@@ -4,6 +4,8 @@ A small public collection of portable AI skills.
 
 ## Skills
 
+- [process-registry](process-registry/SKILL.md) builds portable, numbered runbooks with stage inputs, tool instructions, deliverables and independently graded QA gates.
+
 - `caliber/` — route prompts by task-demand surface before spending tokens, choosing the model, tool lane, verifier, and human gate a task actually needs.
 - `make-it-make-sense/` — a self-contained sense-making protocol for turning messy ideas, plans, documents, or decisions into clear artifacts with visible routing, trust markers, and safe capture behavior.
 - `scout/` — a generic triage protocol for deciding whether a new idea, link, tool, repo, framework, or opportunity deserves GO-now, PARK, or KILL.

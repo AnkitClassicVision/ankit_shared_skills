@@ -1,0 +1,28 @@
+# QA criteria: {{id}} / {{gate_id}}
+
+Grades the output of `{{stage_id}}`. Makers never see this file.
+
+## Scripted checks
+
+Run these first. They are cheap and exact.
+
+- TODO: for example, the file exists, required columns are present, the row count matches the source.
+
+## Judgment checks
+
+- TODO: what a careful reviewer would look for. Say what passes and what fails.
+
+## Golden set
+
+Keep at least one known-good example (`golden/good-<case>/`) and one known-bad example (`golden/bad-<case>/`, with a line on why it is bad).
+This gate is proven only when it passes the good one and fails the bad one.
+
+TODO: how to use the examples, and what "close enough" means.
+
+## Sources a fix note may cite
+
+- TODO: the data and documents the maker can also see.
+
+## Passing
+
+Every scripted check and every judgment check passes. TODO: change this if some checks are advisory only.

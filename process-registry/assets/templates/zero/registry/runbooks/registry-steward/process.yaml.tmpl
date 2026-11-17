@@ -1,0 +1,22 @@
+id: registry-steward
+owner: {{owner}}
+version: 0.1.0
+status: draft
+# Stage ids that wait for a human yes before they start. [] means decided: none.
+# 'undecided' means nobody has decided yet. Lint keeps flagging it.
+human_gate: undecided
+source: ""
+runs_on: []       # harnesses this has passed its gates on
+requires: [git, python3]
+depends_on: []    # skills/<id> or runbooks/<id> this process uses
+bounce_cap: 3
+stages:
+  - id: 01-intake
+    needs: []
+    gate: false
+  - id: 02-author
+    needs: [01-intake]
+    gate: true
+  - id: 03-publish
+    needs: [02-author]
+    gate: false

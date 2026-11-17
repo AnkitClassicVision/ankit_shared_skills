@@ -1,0 +1,43 @@
+# QA criteria: registry-steward / 02.1-qa
+
+Grades the output of `02-author`: a runbook change on two branches.
+
+The steward can read this repo, so this gate is independent but not blind. A different agent still grades.
+
+## Scripted checks
+
+- `python tools/lint.py <registry branch> --qa <qa branch>` exits with no errors.
+- Every gate folder in the runbook has a `qa.md` here at the same path.
+- No `qa.md` file and no `golden` folder exists anywhere in the main registry.
+- For a change, `version` in `process.yaml` is higher than on the main branch.
+- `change-summary.md` exists and names both branches.
+- Running lint with `--against` and `--against-qa` on the two main branches gives the same `review` lines that `change-summary.md` lists. None is missing.
+
+## Judgment checks
+
+- **Description.** The runbook's `description` says what the process does and when to use it. A router could pick it from `ROUTE.md` without opening anything else.
+- **Stages.** Each stage makes one deliverable. Its `STAGE.md` steps are concrete enough that two agents would hand in work of the same shape.
+- **Definition of done.** Each `deliverable.md` states an outcome a maker can aim at. It contains no thresholds, check names or example answers.
+- **No leaks.** Nothing in the main registry branch reveals criteria: not `GATE.md`, not `STAGE.md`, not the pull request text.
+- **Gate placement.** Gates sit where a deliverable crosses a boundary. Internal steps are not gated for the sake of it.
+- **Parallel stages.** Stages that share a number do not read each other's output and do not write to the same place.
+- **Criteria quality.** Each `qa.md` has checks specific enough to grade the same way twice, and lists sources a fix note can cite.
+- **Human yes.** `human_gate` matches the brief. "Undecided" in the brief is `undecided` in the file, not an empty list.
+- **Adoptions.** The steps match how the process runs today. Nothing was redesigned.
+- **Nothing lowered without cause.** Every removed gate, changed `human_gate`, promoted status or raised bounce cap traces to a line in the brief. A `human_gate` that went from `undecided` to a decision names the person who decided.
+- **Gates before the point of no return.** A gate checks the thing before it is sent, published or merged, not after.
+- **Gates are proven.** Each new gate has a known-good and a known-bad example, and the criteria would fail the bad one.
+
+## Golden set
+
+None yet. Add good and bad example runbooks to `golden/` as real cases come up.
+
+## Sources a fix note may cite
+
+- The brief from `01-intake`.
+- The lint output.
+- `AGENTS.md` in the main registry.
+
+## Passing
+
+Every scripted check and every judgment check passes.
